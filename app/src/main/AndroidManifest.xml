@@ -16,13 +16,17 @@
 
         <activity android:name=".MainActivity">
 
-        <activity android:name=".Tienda">
+
 
         </activity>
         <activity android:name=".Info">
 
         </activity>
         <activity android:name=".Opc">
+
+        </activity>
+
+        <activity android:name=".Tienda">
 
         </activity>
         <activity

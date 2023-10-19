@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
 
     TextView contador;
     Button boton;
+
+    ImageView icono;
     BigInteger num =new BigInteger("0") ;
 
     int incrementar = 1;
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         contador  = (TextView) findViewById(R.id.textocontador);
         boton = (Button) findViewById(R.id.button3);
+        icono = (ImageView) findViewById(R.id.jade);
         contador.setText(""+num);
         jade = (ImageView) findViewById(R.id.jade);
         //crearHilos();
@@ -119,5 +122,15 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+    public void irTienda(View v){
+        Intent i = new Intent(this, Tienda.class);
+        startActivity(i);
+    }
+
+    public void setIcono(ImageView v){
+        icono.setImageDrawable();
+
+    }
 
 }
