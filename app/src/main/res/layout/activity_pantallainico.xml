@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".PantallaInicio"
+    android:background="@drawable/tren">
+
+
+        <Button
+            android:id="@+id/Jugar"
+            android:layout_width="214dp"
+            android:layout_height="wrap_content"
+
+            android:gravity="center"
+            android:onClick="irMainActivity"
+            android:text="JUGAR"
+            android:textSize="40dp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.081"
+            >
+
+        </Button>
+
+
+        <Button
+            android:id="@+id/info"
+            android:layout_width="143dp"
+            android:layout_height="50dp"
+            android:background="@color/black"
+            android:onClick="irInfo"
+            android:text="Info"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.485"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.672"
+            tools:ignore="HardcodedText,SpUsage,TextSizeCheck">
+
+        </Button>
+
+
+        <Button
+            android:id="@+id/opction"
+            android:layout_width="137dp"
+            android:layout_height="52dp"
+            android:background="@color/black"
+            android:onClick="irOpciones"
+            android:text="Opciones"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.792"
+            tools:ignore="HardcodedText,SpUsage,TextSizeCheck">
+
+        </Button>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="137dp"
+            android:layout_height="52dp"
+            android:background="@color/black"
+            android:onClick="salir"
+            android:text="Salir"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.918"
+            tools:ignore="HardcodedText,SpUsage,TextSizeCheck">
+
+        </Button>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
