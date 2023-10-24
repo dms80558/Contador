@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     int incrementar = 1;
     int costo = 100;
 
+    ImageView tienda;
+
     ImageView jade;
 
     @Override
@@ -41,8 +43,18 @@ public class MainActivity extends AppCompatActivity {
         //boton = (Button) findViewById(R.id.button3);
         icono = (ImageView) findViewById(R.id.jade);
         contador.setText(""+num);
+        tienda = (ImageView) findViewById(R.id.irTienda);
         jade = (ImageView) findViewById(R.id.jade);
         //crearHilos();
+
+
+        tienda.setOnClickListener(
+                view -> {
+                    // Crear un Intent para iniciar ActivityB
+                    Intent intent = new Intent(MainActivity.this, Tienda.class);
+                    startActivity(intent);
+
+                });
 
 
     }

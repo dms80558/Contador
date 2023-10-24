@@ -11,31 +11,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textColor="@color/white"
         android:text="De que va este juego"
+        android:textColor="@color/white"
         android:textSize="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.619"
+        app:layout_constraintHorizontal_bias="0.36"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.1">
+        app:layout_constraintVertical_bias="0.033">
 
     </TextView>
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="322dp"
-        android:layout_height="60dp"
-        android:textColor="@color/white"
+        android:layout_width="323dp"
+        android:layout_height="64dp"
         android:justificationMode="inter_word"
-        android:text="Este juego consite en un contador, que va aumentado el número cada vez que le das a la imagen central (el jade). "
+        android:text="@string/info2"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.207">
+        app:layout_constraintVertical_bias="0.132">
 
     </TextView>
 
@@ -45,24 +45,24 @@
         android:src="@drawable/jade"
         app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.819"
+        app:layout_constraintHorizontal_bias="0.871"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView4"
-        app:layout_constraintVertical_bias="0.477" />
+        app:layout_constraintVertical_bias="0.639" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="322dp"
         android:layout_height="60dp"
-        android:textColor="@color/white"
         android:justificationMode="inter_word"
-        android:text="En la parte de abajo se encuentra el botón para resetear el contador "
+        android:text="@string/info3"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.404">
+        app:layout_constraintVertical_bias="0.325">
 
     </TextView>
 
@@ -72,29 +72,29 @@
         android:layout_height="wrap_content"
         android:backgroundTint="#FDD191"
         android:onClick="reset"
-        android:text="Resetear"
+        android:text="@string/resetear"
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.809"
+        app:layout_constraintHorizontal_bias="0.864"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.436" />
+        app:layout_constraintVertical_bias="0.346" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="322dp"
         android:layout_height="60dp"
-        android:textColor="@color/white"
         android:justificationMode="inter_word"
-        android:text="Por último en la parte inferior hay otro botón que te permite tener un autoClick y además aumenta el incremento del contador por el costo que aparece. "
+        android:text="@string/info4"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.536">
+        app:layout_constraintVertical_bias="0.461">
 
     </TextView>
 
@@ -116,10 +116,10 @@
         android:src="@drawable/volver"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.041"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.005" />
+        app:layout_constraintVertical_bias="0.978" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

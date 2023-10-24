@@ -6,4 +6,7 @@
     <color name="naranja_maron">#E19E6F</color>
     <color name="rosa_fondo">#E1CC7771</color>
     <color name="dorado_claro">#FDD191</color>
+    <color name="dorado_mas_claro">#C9FDD191</color>
+    <color name="morado_sampo">#655A97</color>
+    <color name="morado_vino">#9E2A51</color>
 </resources>
