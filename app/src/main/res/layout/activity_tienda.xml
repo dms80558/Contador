@@ -4,15 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    tools:context=".Tienda">
+    android:background="@drawable/fondo_tienda"
+    tools:context=".Tienda"
+    >
 
     <TextView
+        android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Tienda"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:textColor="#C9FDD191"
         android:textSize="60dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,8 +25,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="303dp"
-        android:layout_height="158dp"
+        android:layout_width="329dp"
+        android:layout_height="124dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:background="#DA982D27"
@@ -32,19 +34,19 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.111"
+        app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.734">
+        app:layout_constraintVertical_bias="0.688">
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="109dp"
-            android:layout_height="match_parent"
+            android:layout_width="92dp"
+            android:layout_height="128dp"
             android:src="@drawable/tickets" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="235dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
@@ -72,13 +74,16 @@
                 android:id="@+id/button3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="45dp"
+                android:layout_marginLeft="73dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:layout_weight="1"
                 android:backgroundTint="#E19E6F"
                 android:onClick="restar"
-                android:text="100 jades" />
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:text="100 jades"
+                android:textSize="12dp" />
 
         </LinearLayout>
 
@@ -87,26 +92,34 @@
 
     <LinearLayout
         android:id="@+id/linearLayouticon"
-        android:layout_width="295dp"
-        android:layout_height="145dp"
-        android:background="#DA982D27"
+        android:layout_width="330dp"
+        android:layout_height="117dp"
+        android:background="#655A97"
         android:onClick="restar"
         android:orientation="horizontal"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="47dp"
-        tools:layout_editor_absoluteY="261dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView5"
+        app:layout_constraintVertical_bias="0.426"
+        tools:ignore="MissingConstraints">
 
         <ImageView
             android:id="@+id/imagenicono"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/DanHengflor"></ImageView>
+            android:layout_width="167dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/sampo2"></ImageView>
 
         <Button
             android:id="@+id/icono"
-            android:layout_width="wrap_content"
-            android:layout_height="88dp"
+            android:layout_width="113dp"
+            android:layout_height="99dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="#9E2A51"
             android:onClick="setIcono"
+            android:shadowColor="@color/naranja_maron"
             android:text="Cambiar icono"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="136dp"
@@ -114,6 +127,18 @@
 
         </Button>
     </LinearLayout>
+
+    <ImageView
+        android:layout_width="104dp"
+        android:layout_height="51dp"
+        android:onClick="volver"
+        android:src="@drawable/volver"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.995" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

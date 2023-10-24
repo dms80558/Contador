@@ -1,5 +1,7 @@
 package com.example.contador;
 
+import static com.example.contador.R.drawable.sampo2;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -36,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         contador  = (TextView) findViewById(R.id.textocontador);
-        boton = (Button) findViewById(R.id.button3);
+        //boton = (Button) findViewById(R.id.button3);
         icono = (ImageView) findViewById(R.id.jade);
         contador.setText(""+num);
         jade = (ImageView) findViewById(R.id.jade);
@@ -91,6 +93,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+
     public void reset(View v){
         num = BigInteger.valueOf(0);
         contador.setText(""+num);
@@ -122,15 +126,22 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //public void setIcono(ImageView v){
+        //icono.setImageResource(sampo2);
+
+    //}
 
     public void irTienda(View v){
-        Intent i = new Intent(this, Tienda.class);
+        Intent i = new Intent(MainActivity.this, Tienda.class);
         startActivity(i);
-    }
-
-    public void setIcono(ImageView v){
-        icono.setImageDrawable();
 
     }
+
+    public void volver(View v){
+        Intent i = new Intent(MainActivity.this, MainActivity.class);
+        finish();
+    }
+
+
 
 }

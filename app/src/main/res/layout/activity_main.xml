@@ -65,12 +65,17 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
-        android:layout_width="134dp"
-        android:layout_height="83dp"
-        android:src="@drawable/Tienda"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="258dp"
-        tools:layout_editor_absoluteY="724dp">
+        android:id="@+id/irTienda"
+        android:layout_width="127dp"
+        android:layout_height="75dp"
+        android:layout_marginBottom="16dp"
+        android:onClick="irTienda"
+        android:src="@drawable/carrito"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.011"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints">
 
     </ImageView>
 
