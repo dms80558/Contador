@@ -65,11 +65,11 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
-        android:id="@+id/irTienda"
+        android:id="@+id/irtienda"
         android:layout_width="127dp"
         android:layout_height="75dp"
         android:layout_marginBottom="16dp"
-        android:onClick="irTienda"
+        android:onClick="irtienda"
         android:src="@drawable/carrito"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -78,5 +78,22 @@
         tools:ignore="MissingConstraints">
 
     </ImageView>
+
+    <Button
+        android:id="@+id/icono"
+        android:layout_width="113dp"
+        android:layout_height="99dp"
+        android:layout_marginBottom="60dp"
+        android:backgroundTint="#9E2A51"
+        android:onClick="cambiarIcono"
+        android:shadowColor="@color/naranja_maron"
+        android:text="Cambiar icono"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.768"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints">
+
+    </Button>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

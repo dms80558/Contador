@@ -2,9 +2,12 @@ package com.example.contador;
 
 import static com.example.contador.R.drawable.sampo2;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import android.os.Handler;
@@ -17,6 +20,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -24,16 +29,19 @@ public class MainActivity extends AppCompatActivity {
 
     TextView contador;
     Button boton;
+    Button reset;
 
-    ImageView icono;
+    Button icono;
     BigInteger num =new BigInteger("0") ;
 
     int incrementar = 1;
     int costo = 100;
 
-    ImageView tienda;
+    //ImageView tienda;
 
     ImageView jade;
+    ImageView jadens ;
+    int[] iconos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,25 +49,73 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         contador  = (TextView) findViewById(R.id.textocontador);
         //boton = (Button) findViewById(R.id.button3);
-        icono = (ImageView) findViewById(R.id.jade);
+        reset = (Button) findViewById(R.id.reset);
+        //ns
+        iconos= new int[]{R.drawable.sampo2, R.drawable.asta, R.drawable.dandinero};
+        jade= (ImageView)findViewById(R.id.jade);
+       ;
+
+
         contador.setText(""+num);
-        tienda = (ImageView) findViewById(R.id.irTienda);
-        jade = (ImageView) findViewById(R.id.jade);
+
+
         //crearHilos();
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                precaucion();
+            }
+        });
 
+        }
 
-        tienda.setOnClickListener(
-                view -> {
-                    // Crear un Intent para iniciar ActivityB
-                    Intent intent = new Intent(MainActivity.this, Tienda.class);
-                    startActivity(intent);
-
-                });
-
-
+    private void precaucion() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("¿Deseas resetear el contador?");
+        builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                num = BigInteger.ZERO;
+                contador.setText(num.toString());
+                contador.setTextColor(Color.WHITE);
     }
 
-    public void sumar(View v){
+    });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            dialog.dismiss(); //No hará nada
+        }
+    });
+    AlertDialog dialog = builder.create();
+        dialog.show();
+}
+
+
+    public void irtienda(View v){
+        Intent tienda = new Intent(this, Tienda.class);
+        //Pasar "datos"
+      /*
+      *
+      */
+
+      Bundle extras = new Bundle();
+      extras.putString("data", num.toString());
+      extras.putInt("incrementar",incrementar);
+      extras.putInt("costo",costo);
+
+        tienda.putExtras(extras);
+        startActivity(tienda);
+
+  }
+    public void volver(View v) {
+        Intent i = new Intent(this, MainActivity.class);
+        finish();
+    }
+
+
+
+        public void sumar(View v){
         ScaleAnimation fade_in = new ScaleAnimation(0.7f, 1.2f, 0.7f, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         fade_in.setDuration(100);
         jade.startAnimation(fade_in);
@@ -138,21 +194,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    //public void setIcono(ImageView v){
-        //icono.setImageResource(sampo2);
+public void cambiarIcono(){
 
-    //}
 
-    public void irTienda(View v){
-        Intent i = new Intent(MainActivity.this, Tienda.class);
-        startActivity(i);
+        jade.setImageResource(R.drawable.sampo2);
 
-    }
-
-    public void volver(View v){
-        Intent i = new Intent(MainActivity.this, MainActivity.class);
-        finish();
-    }
+      }
 
 
 
