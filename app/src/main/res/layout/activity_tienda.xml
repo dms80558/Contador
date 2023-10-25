@@ -23,6 +23,78 @@
 
     </TextView>
 
+
+    <LinearLayout
+        android:id="@+id/layoutdinero"
+        android:layout_width="331dp"
+        android:layout_height="60dp"
+
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.741"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView5"
+        app:layout_constraintVertical_bias="0.127">
+
+        <LinearLayout
+            android:id="@+id/layoutjades"
+            android:layout_width="159dp"
+            android:layout_height="46dp"
+
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView5"
+            app:layout_constraintVertical_bias="0.155">
+
+            <ImageView
+                android:layout_width="52dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/jade" />
+
+            <TextView
+                android:id="@+id/cantidad_jades"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="0"
+                android:textColor="@color/white"
+                android:textColorHighlight="@color/morado_sampo"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layouttickets"
+            android:layout_width="171dp"
+            android:layout_height="46dp"
+
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView5"
+            app:layout_constraintVertical_bias="0.155">
+
+            <ImageView
+                android:layout_width="68dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/tickets" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="0"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="329dp"
@@ -92,10 +164,10 @@
 
     <LinearLayout
         android:id="@+id/linearLayouticon"
-        android:layout_width="330dp"
-        android:layout_height="117dp"
+        android:onClick="setIcono"
+        android:layout_width="328dp"
+        android:layout_height="135dp"
         android:background="#655A97"
-        android:onClick="restar"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -107,25 +179,40 @@
 
         <ImageView
             android:id="@+id/imagenicono"
-            android:layout_width="167dp"
+            android:layout_width="148dp"
             android:layout_height="match_parent"
             android:src="@drawable/sampo2"></ImageView>
 
-        <Button
-            android:id="@+id/icono"
-            android:layout_width="113dp"
-            android:layout_height="99dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="8dp"
-            android:backgroundTint="#9E2A51"
-            android:onClick="setIcono"
-            android:shadowColor="@color/naranja_maron"
-            android:text="Cambiar icono"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="136dp"
-            tools:layout_editor_absoluteY="216dp">
+        <LinearLayout
+            android:layout_width="182dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        </Button>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Cambia el icono"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="24dp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/bticono"
+                android:layout_width="123dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="23dp"
+                android:backgroundTint="@color/morado_vino"
+                android:text="2 tickets"
+                tools:layout_editor_absoluteX="136dp"
+                tools:layout_editor_absoluteY="216dp">
+
+            </Button>
+        </LinearLayout>
+
+
     </LinearLayout>
 
     <ImageView

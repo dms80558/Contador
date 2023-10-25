@@ -1,10 +1,12 @@
 package com.example.contador;
 
-import static com.example.contador.R.drawable.sampo2;
-
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -20,27 +22,30 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ActivityResultLauncher<Intent> actLaucher;
+
     TextView contador;
     Button boton;
     Button reset;
 
     Button icono;
-    BigInteger num =new BigInteger("0") ;
+
+    //variables a pasar
+    BigInteger jades =new BigInteger("0") ;
 
     int incrementar = 1;
     int costo = 100;
+    int tickets = 0;
 
-    //ImageView tienda;
+  //variables iconos
+    ImageView jadeic;
 
-    ImageView jade;
-    ImageView jadens ;
     int[] iconos;
 
     @Override
@@ -48,18 +53,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         contador  = (TextView) findViewById(R.id.textocontador);
-        //boton = (Button) findViewById(R.id.button3);
+        //botonAutoClick = (Button) findViewById(R.id.button3);
         reset = (Button) findViewById(R.id.reset);
-        //ns
-        iconos= new int[]{R.drawable.sampo2, R.drawable.asta, R.drawable.dandinero};
-        jade= (ImageView)findViewById(R.id.jade);
-       ;
+        jadeic = (ImageView)findViewById(R.id.jade);
+        contador.setText(""+ jades);
 
-
-        contador.setText(""+num);
-
-
-        //crearHilos();
+        //Listener para el metodo precuacion
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,31 +66,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        actLaucher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if(result.getResultCode() == Activity.RESULT_OK){
+                        Intent data = result.getData();
+                        if(data != null){
+                            String newjades = data.getStringExtra("num");
+                            contador.setText(newjades);
+                        }
+                    }
+                });
+
+
+
         }
 
-    private void precaucion() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("¿Deseas resetear el contador?");
-        builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                num = BigInteger.ZERO;
-                contador.setText(num.toString());
-                contador.setTextColor(Color.WHITE);
-    }
 
-    });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            dialog.dismiss(); //No hará nada
-        }
-    });
-    AlertDialog dialog = builder.create();
-        dialog.show();
-}
-
-
+    //IR TIENDA + PASAR DATOS
     public void irtienda(View v){
         Intent tienda = new Intent(this, Tienda.class);
         //Pasar "datos"
@@ -100,12 +91,14 @@ public class MainActivity extends AppCompatActivity {
       */
 
       Bundle extras = new Bundle();
-      extras.putString("data", num.toString());
+      extras.putString("jades", jades.toString());
       extras.putInt("incrementar",incrementar);
       extras.putInt("costo",costo);
+      extras.putInt("tickets", tickets);
 
         tienda.putExtras(extras);
-        startActivity(tienda);
+        actLaucher.launch(tienda);
+
 
   }
     public void volver(View v) {
@@ -118,14 +111,11 @@ public class MainActivity extends AppCompatActivity {
         public void sumar(View v){
         ScaleAnimation fade_in = new ScaleAnimation(0.7f, 1.2f, 0.7f, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         fade_in.setDuration(100);
-        jade.startAnimation(fade_in);
+        jadeic.startAnimation(fade_in);
         //int n = Integer.parseInt(contador.getText().toString()) +1;
-        num = num.add(BigInteger.valueOf(incrementar));
+        jades = jades.add(BigInteger.valueOf(incrementar));
         //num += incrementar;
-        contador.setText(FormatoNum(num));
-
-
-
+        contador.setText(FormatoNum(jades));
     }
 
     public String FormatoNum(BigInteger num){
@@ -151,11 +141,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void restar(View v){
 
-        if(num.compareTo(BigInteger.valueOf(costo))>=0){
-            num = num.subtract(BigInteger.valueOf(costo));
+        if(jades.compareTo(BigInteger.valueOf(costo))>=0){
+            jades = jades.subtract(BigInteger.valueOf(costo));
             incrementar++;
-            contador.setText(""+num);
+            contador.setText(""+ jades);
             costo += 20;
+            tickets++;
             boton.setText(costo+" jades");
             crearHilos();
         }
@@ -164,8 +155,29 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void reset(View v){
-        num = BigInteger.valueOf(0);
-        contador.setText(""+num);
+        jades = BigInteger.valueOf(0);
+        contador.setText(""+ jades);
+    }
+    private void precaucion() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("¿Deseas resetear el contador?");
+        builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                jades = BigInteger.ZERO;
+                contador.setText(jades.toString());
+                contador.setTextColor(Color.WHITE);
+            }
+
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss(); //No hará nada
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
 
@@ -184,20 +196,31 @@ public class MainActivity extends AppCompatActivity {
                 }
                 ScaleAnimation fade_in = new ScaleAnimation(0.7f, 1.2f, 0.7f, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 fade_in.setDuration(100);
-                jade.startAnimation(fade_in);
-                num = num.add(BigInteger.valueOf(incrementar));
+                jadeic.startAnimation(fade_in);
+                jades = jades.add(BigInteger.valueOf(incrementar));
 
                 handler.post(() -> {
                 //UI Thread work here
-                contador.setText(FormatoNum(num));
+                contador.setText(FormatoNum(jades));
             });}
         });
     }
 
-public void cambiarIcono(){
+
+    public void cambiarIcono(View v){
+        if(tickets>(tickets*2)){
+            //cambiar variables
+            tickets = tickets - (tickets*2);
+            //cambiar icono
+            iconos= new int[]{R.drawable.sampo2, R.drawable.asta, R.drawable.dandinero,R.drawable.tingyun,
+                    R.drawable.danheng2,R.drawable.topaz,R.drawable.jade};
+            Random random = new Random();
+            int randomIndex = random.nextInt(iconos.length);
+            jadeic.setImageResource(iconos[randomIndex]);
+        }
 
 
-        jade.setImageResource(R.drawable.sampo2);
+
 
       }
 

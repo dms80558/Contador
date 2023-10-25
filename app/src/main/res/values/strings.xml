@@ -5,5 +5,5 @@
     <string name="info2">Este juego consite en un contador, que va aumentado el número cada vez que le das a la imagen central (el jade). </string>
     <string name="info3">En la parte de abajo se encuentra el botón para resetear el contador "</string>
     <string name="info4">Por último en la parte inferior hay otro botón que te permite tener un autoClick y además aumenta el incremento del contador por el costo que aparece. "</string>
-
+    <string name="cambiaricono">Cambiar icono</string>
 </resources>

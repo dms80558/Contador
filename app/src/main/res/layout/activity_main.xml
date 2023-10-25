@@ -24,6 +24,7 @@
 
     <ImageView
         android:id="@+id/jade"
+        android:contentDescription="jade"
         android:layout_width="184dp"
         android:layout_height="155dp"
         android:layout_marginBottom="328dp"
@@ -33,7 +34,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="SpeakableTextPresentCheck" />
+         />
 
 
     <Button
@@ -56,6 +57,7 @@
         android:layout_width="101dp"
         android:layout_height="57dp"
         android:onClick="volver"
+        android:contentDescription="imagen para volver para atrás"
         android:src="@drawable/volver"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -66,6 +68,7 @@
 
     <ImageView
         android:id="@+id/irtienda"
+        android:contentDescription="imagen para ir a la tienda"
         android:layout_width="127dp"
         android:layout_height="75dp"
         android:layout_marginBottom="16dp"
@@ -75,7 +78,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.011"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints">
+        >
 
     </ImageView>
 
@@ -87,12 +90,12 @@
         android:backgroundTint="#9E2A51"
         android:onClick="cambiarIcono"
         android:shadowColor="@color/naranja_maron"
-        android:text="Cambiar icono"
+        android:text="@string/cambiaricono"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.768"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints">
+        >
 
     </Button>
 
