@@ -52,11 +52,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         contador  = (TextView) findViewById(R.id.textocontador);
         //botonAutoClick = (Button) findViewById(R.id.button3);
         reset = (Button) findViewById(R.id.reset);
+        //NO TE CARRULA LA IMAGEN
         jadeic = (ImageView)findViewById(R.id.jade);
+
         contador.setText(""+ jades);
+
+
+        Bundle bundle = new Bundle();
+        if(bundle != null){
+            jadeic.setImageResource(bundle.getInt("iconoint"));
+        }
+
+
+
 
         //Listener para el metodo precuacion
         reset.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        actLaucher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+      /*  actLaucher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if(result.getResultCode() == Activity.RESULT_OK){
                         Intent data = result.getData();
@@ -75,34 +87,41 @@ public class MainActivity extends AppCompatActivity {
                             contador.setText(newjades);
                         }
                     }
-                });
-
-
+                });*/
 
         }
 
 
     //IR TIENDA + PASAR DATOS
-    public void irtienda(View v){
-        Intent tienda = new Intent(this, Tienda.class);
+    /*public void goShop(View v){
+        Intent shop = new Intent(this, Tienda.class);
+        startActivity(shop);
+        shop.//shop.putExtra("jades", jades.toString());
         //Pasar "datos"
       /*
       *
-      */
 
-      Bundle extras = new Bundle();
-      extras.putString("jades", jades.toString());
-      extras.putInt("incrementar",incrementar);
-      extras.putInt("costo",costo);
-      extras.putInt("tickets", tickets);
-
-        tienda.putExtras(extras);
-        actLaucher.launch(tienda);
+        startActivity(shop);
+        Bundle extras = new Bundle();
+        extras.putString("jades", jades.toString());
+        extras.putInt("incrementar",incrementar);
+        extras.putInt("costo",costo);
+        extras.putInt("tickets", tickets);
 
 
-  }
-    public void volver(View v) {
-        Intent i = new Intent(this, MainActivity.class);
+        shop.putExtras(extras);
+        //actLaucher.launch(shop);
+
+
+
+    }*/
+
+
+
+
+    public void goBack(View v) {
+        Intent i = new Intent(this, PantallaInicio.class);
+        startActivity(i);
         finish();
     }
 
@@ -166,7 +185,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 jades = BigInteger.ZERO;
                 contador.setText(jades.toString());
-                contador.setTextColor(Color.WHITE);
             }
 
         });
@@ -207,23 +225,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void cambiarIcono(View v){
-        if(tickets>(tickets*2)){
-            //cambiar variables
-            tickets = tickets - (tickets*2);
-            //cambiar icono
-            iconos= new int[]{R.drawable.sampo2, R.drawable.asta, R.drawable.dandinero,R.drawable.tingyun,
-                    R.drawable.danheng2,R.drawable.topaz,R.drawable.jade};
-            Random random = new Random();
-            int randomIndex = random.nextInt(iconos.length);
-            jadeic.setImageResource(iconos[randomIndex]);
-        }
 
+    public void goShop(View v){
 
+        Intent i = new Intent(this, Tienda.class);
+        //set data
+        String num_jades = jades.toString();
+        String num_tickets = ""+tickets;
+        i.putExtra("num_jades", num_jades);
+        i.putExtra("num_tickets",num_tickets);
+        i.putExtra("precio",costo);
+        startActivity(i);
 
-
-      }
-
+    }
 
 
 }

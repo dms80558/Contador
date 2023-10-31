@@ -205,7 +205,7 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="23dp"
                 android:backgroundTint="@color/morado_vino"
-                android:text="2 tickets"
+                android:text="10 tickets"
                 tools:layout_editor_absoluteX="136dp"
                 tools:layout_editor_absoluteY="216dp">
 
@@ -218,7 +218,7 @@
     <ImageView
         android:layout_width="104dp"
         android:layout_height="51dp"
-        android:onClick="volver"
+        android:onClick="goBack"
         android:src="@drawable/volver"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
