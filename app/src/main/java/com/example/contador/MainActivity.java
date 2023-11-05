@@ -61,10 +61,11 @@ public class MainActivity extends AppCompatActivity {
 
         contador.setText(""+ jades);
 
+        Intent intent1 = getIntent();
 
-        Bundle bundle = new Bundle();
-        if(bundle != null){
-            jadeic.setImageResource(bundle.getInt("iconoint"));
+        if(intent1.hasExtra("iconoint")){
+            int iconoint = intent1.getExtras().getInt("iconoint",R.id.jade);
+            jadeic.setImageResource(iconoint);
         }
 
 
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-      /*  actLaucher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+      actLaucher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if(result.getResultCode() == Activity.RESULT_OK){
                         Intent data = result.getData();
@@ -87,43 +88,12 @@ public class MainActivity extends AppCompatActivity {
                             contador.setText(newjades);
                         }
                     }
-                });*/
+                });
 
         }
 
 
-    //IR TIENDA + PASAR DATOS
-    /*public void goShop(View v){
-        Intent shop = new Intent(this, Tienda.class);
-        startActivity(shop);
-        shop.//shop.putExtra("jades", jades.toString());
-        //Pasar "datos"
-      /*
-      *
 
-        startActivity(shop);
-        Bundle extras = new Bundle();
-        extras.putString("jades", jades.toString());
-        extras.putInt("incrementar",incrementar);
-        extras.putInt("costo",costo);
-        extras.putInt("tickets", tickets);
-
-
-        shop.putExtras(extras);
-        //actLaucher.launch(shop);
-
-
-
-    }*/
-
-
-
-
-    public void goBack(View v) {
-        Intent i = new Intent(this, PantallaInicio.class);
-        startActivity(i);
-        finish();
-    }
 
 
 
@@ -171,12 +141,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-
     public void reset(View v){
         jades = BigInteger.valueOf(0);
         contador.setText(""+ jades);
     }
+
+
     private void precaucion() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("¿Deseas resetear el contador?");
@@ -237,6 +207,12 @@ public class MainActivity extends AppCompatActivity {
         i.putExtra("precio",costo);
         startActivity(i);
 
+    }
+
+    public void goBack(View v) {
+        Intent i = new Intent(this, PantallaInicio.class);
+        startActivity(i);
+        finish();
     }
 
 

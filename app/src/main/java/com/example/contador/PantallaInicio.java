@@ -32,7 +32,7 @@ public class PantallaInicio extends AppCompatActivity {
 
     }
     public void irOpciones(View v){
-        Intent i = new Intent(this, Info.class);
+        Intent i = new Intent(this, Opc.class);
         startActivity(i);
     }
 

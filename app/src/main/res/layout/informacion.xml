@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/card"
+        app:cardElevation="0dp"
+
+        android:outlineSpotShadowColor="@android:color/transparent"
+        app:cardBackgroundColor="@android:color/transparent"
+        android:layout_margin="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="0dp"
+            android:padding="0dp"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:id="@+id/personimg"
+                android:layout_width="141dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
+                android:layout_margin="5dp"
+
+                android:src="@drawable/sampo2" />
+
+            <LinearLayout
+                android:layout_width="247dp"
+                android:layout_height="89dp"
+                android:layout_margin="0dp"
+                android:layout_marginStart="4dp"
+                android:layout_toEndOf="@+id/personimg"
+                android:orientation="vertical"
+                android:padding="0dp">
+
+                <TextView
+                    android:id="@+id/principal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:text="Nombre: "
+                    android:textColor="@color/white"
+                    android:textSize="24dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/nombreper"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:text="Sampo"
+                    android:textColor="#D3BDFB"
+                    android:textSize="25dp" />
+            </LinearLayout>
+
+
+
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+
+</RelativeLayout>

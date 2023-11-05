@@ -12,7 +12,7 @@
             android:id="@+id/Jugar"
             android:layout_width="214dp"
             android:layout_height="wrap_content"
-
+            android:background="@android:color/transparent"
             android:gravity="center"
             android:onClick="irMainActivity"
             android:text="JUGAR"
