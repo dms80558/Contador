@@ -21,10 +21,10 @@ public class Tienda extends AppCompatActivity {
     TextView jades;
     int num_jades=0;
     int[] iconos;
-    int vales = 100;
-    int iconInt;
+    int vales;
+    int iconInt = R.drawable.dandinero;
     //VARIABLE PARA SABER SI SE PULSO EL BOTON DE CAMBIO DE ICONO
-    boolean yes = false;
+    //boolean yes = false;
 
 
     @Override
@@ -54,13 +54,13 @@ public class Tienda extends AppCompatActivity {
         botonTickets.setText(vales + " tickets");
         textvales.setText(""+vales);
 
+        iconInt = getIconint();
+
     }
 
 
   public int getIconint(){
-        int r = R.drawable.dandinero;
-
-
+        int r;
             //cambiar icono
             iconos= new int[]{R.drawable.sampo2, R.drawable.asta, R.drawable.dandinero,R.drawable.tingyun,
                     R.drawable.danheng2,R.drawable.topaz,R.drawable.jade};
@@ -68,11 +68,11 @@ public class Tienda extends AppCompatActivity {
             int randomIndex = random.nextInt(iconos.length);
             r = iconos[randomIndex];
             //cambiar variables
-            vales = 0;
-            yes = true;
+            //vales = 0;
+            //yes = true;
             // textvales.setText(0);
         iconInt = r;
-        return r;
+        return iconInt;
     }
 
 

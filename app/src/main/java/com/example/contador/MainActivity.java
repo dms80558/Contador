@@ -64,7 +64,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent1 = getIntent();
 
         if(intent1.hasExtra("iconoint")){
-            int iconoint = intent1.getExtras().getInt("iconoint",R.id.jade);
+            int iconoint =intent1.getIntExtra("iconoint", R.drawable.sampo2);
+            //int iconoint = intent1.getExtras().getString("iconoint",R.id.jade);
             jadeic.setImageResource(iconoint);
         }
 
