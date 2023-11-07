@@ -55,7 +55,7 @@ public class MainActivity2 extends AppCompatActivity {
     public boolean onContextItemSelected(@NonNull MenuItem item){
         switch (item.getItemId()){
             case 101:
-                Snackbar.make(findViewById(R.id.rootid),"Opcion ns selecionada",Snackbar.LENGTH_LONG).show();
+                Snackbar.make(findViewById(R.id.rootid),"Opción ns selecionada",Snackbar.LENGTH_LONG).show();
                 return true;
             case 102:
                 Snackbar.make(findViewById(R.id.rootid),"Eliminado",Snackbar.LENGTH_LONG).show();
