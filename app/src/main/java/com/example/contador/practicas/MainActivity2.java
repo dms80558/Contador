@@ -8,6 +8,7 @@ import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,7 +47,7 @@ public class MainActivity2 extends AppCompatActivity {
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(new PersonajesAdapter(context,p));
-        t = findViewById(R.id.moreinfo);
+        t =  (TextView) findViewById(R.id.moreInfo);
 
     }
 
@@ -63,6 +64,11 @@ public class MainActivity2 extends AppCompatActivity {
                 return super.onContextItemSelected(item);
         }
     }
+    public void moreInfo(View v){
+        Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("https://hsr.hoyoverse.com/es-es/character?worldIndex=6"));
+        startActivity(i);
+    }
+
     public void goBack(View v){
         Intent back = new Intent(this, Info.class);
         finish();

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.contador.practicas.MainActivity2"
+    android:id="@+id/rootid"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/fondo"
-    android:id="@+id/rootid">
+
+    tools:context="com.example.contador.practicas.MainActivity2">
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -41,28 +42,31 @@
         android:layout_marginTop="7dp"
         android:layout_marginEnd="-3dp"
         android:text="Personajes"
-        android:textStyle="bold"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="30dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/button"
-        android:layout_width="138dp"
-        android:layout_height="49dp"
+        android:layout_width="130dp"
+        android:layout_height="35dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="140dp"
-        android:layout_marginEnd="116dp"
+        android:layout_marginStart="143dp"
+        android:layout_marginEnd="138dp"
         android:layout_marginBottom="50dp"
+        android:background="@drawable/border"
         android:backgroundTint="#805BE4"
         android:onClick="goBack"
+        android:paddingTop="1dp"
+        android:paddingBottom="1dp"
         android:text="Atrás"
         android:textColor="@color/black"
-        android:textSize="23dp"
+        android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,8 +74,8 @@
         app:layout_constraintVertical_bias="0.975" />
 
     <TextView
+        android:id="@+id/moreInfo"
         android:layout_width="376dp"
-        android:id="@+id/moreinfo"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
@@ -79,6 +83,7 @@
         android:layout_marginStart="11dp"
         android:layout_marginEnd="9dp"
         android:layout_marginBottom="16dp"
+        android:onClick="moreInfo"
         android:text="Más informacion sobre los personajes"
         android:textAlignment="center"
         android:textColor="@color/white" />
