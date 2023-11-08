@@ -19,6 +19,9 @@ public class PantallaInicio extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantallainico);
+        player = MediaPlayer.create(this,R.raw.song);
+        player.setLooping(true);
+        player.start();
     }
     public void play(View v){
        if(player == null){

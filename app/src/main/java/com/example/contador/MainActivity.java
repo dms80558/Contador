@@ -1,5 +1,7 @@
 package com.example.contador;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -27,23 +29,36 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
-
     private ActivityResultLauncher<Intent> actLaucher;
+
+    private ActivityResultLauncher<Intent> startForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        @Override
+        public void onActivityResult(ActivityResult result) {
+            if(result != null && result.getResultCode() == RESULT_OK){
+                if(result.getData() != null && result.getData().getIntExtra(Tienda.KEY_NAME,R.drawable.dandinero) != 0){
+                    jadeic.setImageResource(result.getData().getIntExtra(Tienda.KEY_NAME,R.drawable.dandinero));
+                }
+                if(result.getData() !=null && result.getData().getIntExtra(Tienda.KEY_JADES,0) !=0){
+                    contador.setText("" + result.getData().getIntExtra(Tienda.KEY_JADES,0));
+                }
+            }
+        }
+    });
 
     TextView contador;
     Button boton;
     Button reset;
 
-    Button icono;
+    //Button icono;
 
     //variables a pasar
-    BigInteger jades =new BigInteger("0") ;
+    BigInteger jades = new BigInteger("0");
 
     int incrementar = 1;
     int costo = 100;
     int tickets = 0;
 
-  //variables iconos
+    //variables iconos
     ImageView jadeic;
 
     int[] iconos;
@@ -53,21 +68,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        contador  = (TextView) findViewById(R.id.textocontador);
+        contador = (TextView) findViewById(R.id.textocontador);
         //botonAutoClick = (Button) findViewById(R.id.button3);
         reset = (Button) findViewById(R.id.reset);
         //NO TE CARRULA LA IMAGEN
-        jadeic = (ImageView)findViewById(R.id.jade);
+        jadeic = (ImageView) findViewById(R.id.jade);
 
-        contador.setText(""+ jades);
+        contador.setText("" + jades);
 
-        Intent intent1 = getIntent();
 
-        if(intent1.hasExtra("iconoint")){
-            int iconoint =intent1.getIntExtra("iconoint", R.drawable.sampo2);
-            //int iconoint = intent1.getExtras().getString("iconoint",R.id.jade);
-            jadeic.setImageResource(iconoint);
-        }
+
+
 
 
 
@@ -80,25 +91,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-      actLaucher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+        actLaucher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 result -> {
-                    if(result.getResultCode() == Activity.RESULT_OK){
+                    if (result.getResultCode() == Activity.RESULT_OK) {
                         Intent data = result.getData();
-                        if(data != null){
+                        if (data != null) {
                             String newjades = data.getStringExtra("num");
                             contador.setText(newjades);
                         }
                     }
                 });
 
-        }
+    }
 
 
-
-
-
-
-        public void sumar(View v){
+    public void sumar(View v) {
         ScaleAnimation fade_in = new ScaleAnimation(0.7f, 1.2f, 0.7f, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         fade_in.setDuration(100);
         jadeic.startAnimation(fade_in);
@@ -108,44 +115,43 @@ public class MainActivity extends AppCompatActivity {
         contador.setText(FormatoNum(jades));
     }
 
-    public String FormatoNum(BigInteger num){
-        String r="";
-        if(num.compareTo(BigInteger.valueOf(1000))<0) {
-            r = (""+num.toString());
-        } else if(num.compareTo(BigInteger.valueOf(1000))>0&&num.compareTo(BigInteger.valueOf(1000_000))<=0){
+    public String FormatoNum(BigInteger num) {
+        String r = "";
+        if (num.compareTo(BigInteger.valueOf(1000)) < 0) {
+            r = ("" + num.toString());
+        } else if (num.compareTo(BigInteger.valueOf(1000)) > 0 && num.compareTo(BigInteger.valueOf(1000_000)) <= 0) {
             BigInteger mil = num.divide(BigInteger.valueOf(1000));
-            r = (mil.toString()+"MIL");
-        }else if (num.compareTo(BigInteger.valueOf(1000_000))>0&&num.compareTo(BigInteger.valueOf(1000_000_000))<=0) {
+            r = (mil.toString() + "MIL");
+        } else if (num.compareTo(BigInteger.valueOf(1000_000)) > 0 && num.compareTo(BigInteger.valueOf(1000_000_000)) <= 0) {
             BigInteger mill = num.divide(BigInteger.valueOf(1000_000));
-            r = (mill.toString()+"K");
-        }
-        else if (num.compareTo(BigInteger.valueOf(1000_000_000))>0&&num.compareTo(BigInteger.valueOf(1_000_000_000_000l))<=0) {
+            r = (mill.toString() + "K");
+        } else if (num.compareTo(BigInteger.valueOf(1000_000_000)) > 0 && num.compareTo(BigInteger.valueOf(1_000_000_000_000l)) <= 0) {
             BigInteger trill = num.divide(BigInteger.valueOf(1000_000_000));
-            r = (trill.toString()+"M");}
-        else{
+            r = (trill.toString() + "M");
+        } else {
             BigInteger trill = num.divide(BigInteger.valueOf(1000_000_000_000l));
-            r = (trill.toString()+" ∞");
+            r = (trill.toString() + " ∞");
         }
         return r;
     }
 
-    public void restar(View v){
+    public void restar(View v) {
 
-        if(jades.compareTo(BigInteger.valueOf(costo))>=0){
+        if (jades.compareTo(BigInteger.valueOf(costo)) >= 0) {
             jades = jades.subtract(BigInteger.valueOf(costo));
             incrementar++;
-            contador.setText(""+ jades);
+            contador.setText("" + jades);
             costo += 20;
             tickets++;
-            boton.setText(costo+" jades");
+            boton.setText(costo + " jades");
             crearHilos();
         }
     }
 
-    public void reset(View v){
+    /*public void reset(View v) {
         jades = BigInteger.valueOf(0);
-        contador.setText(""+ jades);
-    }
+        contador.setText("" + jades);
+    }*/
 
 
     private void precaucion() {
@@ -170,14 +176,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-    public void crearHilos(){
+    public void crearHilos() {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
 
         executor.execute(() -> {
             //Background work here
-            while(true){
+            while (true) {
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -189,24 +194,24 @@ public class MainActivity extends AppCompatActivity {
                 jades = jades.add(BigInteger.valueOf(incrementar));
 
                 handler.post(() -> {
-                //UI Thread work here
-                contador.setText(FormatoNum(jades));
-            });}
+                    //UI Thread work here
+                    contador.setText(FormatoNum(jades));
+                });
+            }
         });
     }
 
 
-
-    public void goShop(View v){
+    public void goShop(View v) {
 
         Intent i = new Intent(this, Tienda.class);
         //set data
         String num_jades = jades.toString();
-        String num_tickets = ""+tickets;
+        String num_tickets = "" + tickets;
         i.putExtra("num_jades", num_jades);
-        i.putExtra("num_tickets",num_tickets);
-        i.putExtra("precio",costo);
-        startActivity(i);
+        i.putExtra("num_tickets", num_tickets);
+        i.putExtra("precio", costo);
+        startForResult.launch(i);
 
     }
 

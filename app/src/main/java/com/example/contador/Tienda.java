@@ -6,25 +6,30 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.appcompat.app.AppCompatActivity;
 
 
 import org.w3c.dom.Text;
 
+import java.math.BigInteger;
 import java.util.Random;
 
 public class Tienda extends AppCompatActivity {
+    public static final String KEY_NAME = "NAME";
+    public static final String KEY_JADES ="JADES";
     Button botonAutoClick;
     Button botonTickets;
     TextView textvales;
     TextView jades;
-    int num_jades=0;
+    int num_jades = 0;
     int[] iconos;
-    int vales;
+    int tickets;
+    int costo = 12;
+    int incrementar = 1;
+
     int iconInt = R.drawable.dandinero;
-    //VARIABLE PARA SABER SI SE PULSO EL BOTON DE CAMBIO DE ICONO
-    //boolean yes = false;
+
 
 
     @Override
@@ -39,49 +44,88 @@ public class Tienda extends AppCompatActivity {
         jades = (TextView) findViewById(R.id.cantidad_jades);
 
 
+        botonTickets.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iconInt = getIconint();
+                Intent resultado = new Intent();
+                resultado.putExtra(KEY_NAME,iconInt);
+                setResult(RESULT_OK,resultado);
+                finish();
+            }
+        });
+
+        botonAutoClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                restar();
+                //modificar view con el resultado del metodo
+                jades.setText("" + num_jades);
+                botonAutoClick.setText(costo + " jades");
+                botonTickets.setText(tickets + "tickets");
+                textvales.setText("" + tickets);
+                //pasar el numero de jades al main
+                Intent operacion = new Intent();
+                operacion.putExtra(KEY_JADES,num_jades);
+                setResult(RESULT_OK,operacion);
+                finish();
+            }
+        });
+
+
         //RECOGER DATOS
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-        num_jades =  Integer.parseInt(intent.getExtras().getString("num_jades",""));
-        String tickets = intent.getExtras().getString("num_tickets","");
-        int precio = intent.getExtras().getInt("precio");
+        num_jades = Integer.parseInt(intent.getExtras().getString("num_jades", ""));
+        //String tickets = intent.getExtras().getString("num_tickets", "");
+        //int precio = intent.getExtras().getInt("precio");
 
 
         //INSERTAR DATOS
-        jades.setText(""+num_jades);
-        botonAutoClick.setText(precio +" jades");
+        jades.setText("" + num_jades);
+        botonAutoClick.setText(costo + " jades");
         botonTickets.setText(tickets + "tickets");
-        botonTickets.setText(vales + " tickets");
-        textvales.setText(""+vales);
+        textvales.setText("" + tickets);
 
-        iconInt = getIconint();
+
 
     }
 
 
-  public int getIconint(){
-        int r;
-            //cambiar icono
-            iconos= new int[]{R.drawable.sampo2, R.drawable.asta, R.drawable.dandinero,R.drawable.tingyun,
-                    R.drawable.danheng2,R.drawable.topaz,R.drawable.jade};
-            Random random = new Random();
-            int randomIndex = random.nextInt(iconos.length);
-            r = iconos[randomIndex];
-            //cambiar variables
-            //vales = 0;
-            //yes = true;
-            // textvales.setText(0);
-        iconInt = r;
-        return iconInt;
+    public int getIconint() {
+        int r =0;
+        //cambiar icono
+        iconos = new int[]{R.drawable.sampo2, R.drawable.asta, R.drawable.dandinero, R.drawable.tingyun,
+                R.drawable.danheng2, R.drawable.topaz, R.drawable.jade, R.drawable.sietedemarzo, R.drawable.pompom, R.drawable.pompom, R.drawable.yanqing};
+        Random random = new Random();
+        int randomIndex = random.nextInt(iconos.length);
+        r = iconos[randomIndex];
+        //cambiar variables
+        //vales = 0;
+        //yes = true;
+        // textvales.setText(0);
+        //iconInt = r;
+        return r;
     }
 
+
+    public void restar() {
+
+        if (num_jades >= costo) {
+            num_jades = num_jades - costo;
+            incrementar++;
+            costo += 20;
+            tickets++;
+        }
+    }
 
 
     public void goBack(View v) {
         Intent i = new Intent(this, MainActivity.class);
-       i.putExtra("num", jades.getText().toString());
-       i.putExtra("iconoint",iconInt);
-            //setResult(RESULT_OK, i);
+        //i.putExtra("num", jades.getText().toString());
+        //i.putExtra("iconoint", iconInt);
+        //setResult(RESULT_OK, i);
+        //startActivity(i);
         finish();
-        }
+    }
 }
