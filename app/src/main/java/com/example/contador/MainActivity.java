@@ -38,8 +38,17 @@ public class MainActivity extends AppCompatActivity {
                 if(result.getData() != null && result.getData().getIntExtra(Tienda.KEY_NAME,R.drawable.dandinero) != 0){
                     jadeic.setImageResource(result.getData().getIntExtra(Tienda.KEY_NAME,R.drawable.dandinero));
                 }
-                if(result.getData() !=null && result.getData().getIntExtra(Tienda.KEY_JADES,0) !=0){
-                    contador.setText("" + result.getData().getIntExtra(Tienda.KEY_JADES,0));
+
+                if(result.getData() !=null && result.getData().getIntExtra(Tienda.KEY_JADES,jades.intValue()) >=0){
+                    if(jades.intValue() == result.getData().getIntExtra(Tienda.KEY_JADES,jades.intValue())){
+                        jades = BigInteger.valueOf(result.getData().getIntExtra(Tienda.KEY_JADES,jades.intValue()));
+                    }
+                    contador.setText(""+ result.getData().getIntExtra(Tienda.KEY_JADES,jades.intValue()));
+                    jades = BigInteger.valueOf(result.getData().getIntExtra(Tienda.KEY_JADES,0));
+
+                }
+                if(result.getData() !=null && result.getData().getIntExtra(Tienda.KEY_INCREMENTAR,1)!= 1){
+                    incrementar = result.getData().getIntExtra(Tienda.KEY_INCREMENTAR,jades.intValue());
                 }
             }
         }
@@ -79,6 +88,9 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
+        contador.setText("" + jades);
 
 
 
@@ -211,6 +223,7 @@ public class MainActivity extends AppCompatActivity {
         i.putExtra("num_jades", num_jades);
         i.putExtra("num_tickets", num_tickets);
         i.putExtra("precio", costo);
+        i.putExtra("incrementar",incrementar);
         startForResult.launch(i);
 
     }

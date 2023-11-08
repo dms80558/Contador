@@ -72,4 +72,11 @@ public class Opc extends AppCompatActivity {
         super.onStop();
         stopPlayer();
     }
+
+    public void goBack(View v) {
+        Intent i = new Intent(this, PantallaInicio.class);
+        startActivity(i);
+        finish();
+    }
+
 }

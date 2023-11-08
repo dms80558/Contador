@@ -18,6 +18,7 @@ import java.util.Random;
 public class Tienda extends AppCompatActivity {
     public static final String KEY_NAME = "NAME";
     public static final String KEY_JADES ="JADES";
+    public static final String KEY_INCREMENTAR = "INCREMENTAR";
     Button botonAutoClick;
     Button botonTickets;
     TextView textvales;
@@ -43,6 +44,19 @@ public class Tienda extends AppCompatActivity {
         botonTickets = (Button) findViewById(R.id.bticono);
         jades = (TextView) findViewById(R.id.cantidad_jades);
 
+        //RECOGER DATOS
+        Intent intent = getIntent();
+        num_jades = Integer.parseInt(intent.getExtras().getString("num_jades", "0"));
+        incrementar = intent.getExtras().getInt("incrementar");
+
+
+
+        //INSERTAR DATOS
+        jades.setText("" + num_jades);
+        botonAutoClick.setText(costo + " jades");
+        botonTickets.setText(tickets + "tickets");
+        textvales.setText("" + tickets);
+
 
         botonTickets.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,36 +73,32 @@ public class Tienda extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 restar();
-                //modificar view con el resultado del metodo
-                jades.setText("" + num_jades);
-                botonAutoClick.setText(costo + " jades");
-                botonTickets.setText(tickets + "tickets");
-                textvales.setText("" + tickets);
-                //pasar el numero de jades al main
+                tickets++;
+                cambiarview(v);
                 Intent operacion = new Intent();
                 operacion.putExtra(KEY_JADES,num_jades);
+                operacion.putExtra(KEY_INCREMENTAR,incrementar);
                 setResult(RESULT_OK,operacion);
                 finish();
             }
         });
 
 
-        //RECOGER DATOS
-        Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
-        num_jades = Integer.parseInt(intent.getExtras().getString("num_jades", ""));
-        //String tickets = intent.getExtras().getString("num_tickets", "");
-        //int precio = intent.getExtras().getInt("precio");
 
 
-        //INSERTAR DATOS
+
+
+
+
+
+
+    }
+
+    public void cambiarview(View v){
         jades.setText("" + num_jades);
         botonAutoClick.setText(costo + " jades");
         botonTickets.setText(tickets + "tickets");
         textvales.setText("" + tickets);
-
-
-
     }
 
 
@@ -100,11 +110,6 @@ public class Tienda extends AppCompatActivity {
         Random random = new Random();
         int randomIndex = random.nextInt(iconos.length);
         r = iconos[randomIndex];
-        //cambiar variables
-        //vales = 0;
-        //yes = true;
-        // textvales.setText(0);
-        //iconInt = r;
         return r;
     }
 
@@ -122,8 +127,8 @@ public class Tienda extends AppCompatActivity {
 
     public void goBack(View v) {
         Intent i = new Intent(this, MainActivity.class);
-        //i.putExtra("num", jades.getText().toString());
-        //i.putExtra("iconoint", iconInt);
+        i.putExtra("num", num_jades);
+        i.putExtra("incrementar", incrementar);
         //setResult(RESULT_OK, i);
         //startActivity(i);
         finish();
