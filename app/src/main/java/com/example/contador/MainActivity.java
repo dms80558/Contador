@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import android.os.Handler;
@@ -22,6 +23,7 @@ import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.math.BigInteger;
 import java.util.Random;
@@ -62,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         }
     });
 
+    MediaPlayer player;
     TextView contador;
     Button boton;
     Button reset;
@@ -219,6 +222,35 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    public void play(View v){
+        if(player == null){
+            player = MediaPlayer.create(this,R.raw.song);
+            player.setLooping(true);
+            player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    stopPlayer();
+                }
+            });
+        }
+        player.start();
+    }
+    public void stop(View v){
+        stopPlayer();
+    }
+    private void stopPlayer() {
+        if(player != null){
+            player.release();
+            player = null;
+            Toast.makeText(this, "Ns", Toast.LENGTH_SHORT);
+        }
+    }
+    @Override
+    protected void onStop(){
+        super.onStop();
+        stopPlayer();
     }
 
 

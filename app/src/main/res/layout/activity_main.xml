@@ -20,14 +20,13 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.221" />
-
+        app:layout_constraintVertical_bias="0.138" />
 
     <ImageView
         android:id="@+id/jade"
         android:layout_width="184dp"
         android:layout_height="155dp"
-        android:layout_marginBottom="332dp"
+        android:layout_marginBottom="408dp"
         android:contentDescription="jade"
         android:onClick="sumar"
         android:src="@drawable/jade"
@@ -50,7 +49,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.69" />
+        app:layout_constraintVertical_bias="0.633" />
 
     <ImageView
         android:layout_width="101dp"
@@ -75,11 +74,40 @@
         android:src="@drawable/carrito"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.011"
+        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent">
 
     </ImageView>
 
+    <ImageView
+        android:id="@+id/nosonido"
+        android:layout_width="52dp"
+        android:layout_height="49dp"
+        android:layout_marginBottom="4dp"
+        android:contentDescription="imagen para ir a la tienda"
+        android:onClick="stop"
+        android:src="@drawable/nosoundnegro"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.955"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </ImageView>
+
+    <ImageView
+        android:id="@+id/sonido"
+        android:layout_width="52dp"
+        android:layout_height="49dp"
+        android:layout_marginBottom="4dp"
+        android:contentDescription="imagen para ir a la tienda"
+        android:onClick="play"
+        android:src="@drawable/soundnegro"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.033"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </ImageView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
