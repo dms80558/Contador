@@ -13,6 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.snackbar.Snackbar;
+
 public class Opc extends AppCompatActivity {
     MediaPlayer player;
     @Override
@@ -44,6 +46,12 @@ public class Opc extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+
+
+
+    //metodos para reproduccion musica
     public void play(View v){
         if(player == null){
             player = MediaPlayer.create(this,R.raw.song);
@@ -72,6 +80,8 @@ public class Opc extends AppCompatActivity {
         super.onStop();
         stopPlayer();
     }
+    //fin metodos para reproduccion musica
+
 
     public void goBack(View v) {
         Intent i = new Intent(this, PantallaInicio.class);

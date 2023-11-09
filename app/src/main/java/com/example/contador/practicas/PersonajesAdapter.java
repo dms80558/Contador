@@ -60,26 +60,12 @@ public class PersonajesAdapter extends RecyclerView.Adapter<PersonajesAdapter.Vi
 
         }
 
+
+
         public void bind(Personajes personajes){
             nombre.setText(personajes.getNombre());
             imagen.setImageResource(personajes.getImagen());
         }
-
-        /*@Override
-        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-            menu.setHeaderTitle("Seleciona algo:");
-            menu.add(getBindingAdapterPosition(), 101,0, "Ns");
-            menu.add(getBindingAdapterPosition(),102,1,"delete");
-
-        }*/
-
-        /*@Override
-        public void onClick(View v) {
-            Log.d(TAG,"onClick:"+ getBindingAdapterPosition());
-            Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("https://developer.android.com/guide/topics/ui/menus?hl=es-419"));
-        }*/
-
-
     }
 
 

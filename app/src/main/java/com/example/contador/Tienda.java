@@ -19,17 +19,20 @@ public class Tienda extends AppCompatActivity {
     public static final String KEY_NAME = "NAME";
     public static final String KEY_JADES ="JADES";
     public static final String KEY_INCREMENTAR = "INCREMENTAR";
+    public static final String KEY_TICKETS = "TICKETS";
+    public static final String KEY_COSTO = "COSTO";
+
     Button botonAutoClick;
     Button botonTickets;
     TextView textvales;
     TextView jades;
     int num_jades = 0;
     int[] iconos;
-    int tickets;
+    int tickets = 0;
     int costo = 12;
     int incrementar = 1;
 
-    int iconInt = R.drawable.dandinero;
+    int iconInt = R.drawable.jade;
 
 
 
@@ -37,9 +40,9 @@ public class Tienda extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tienda);
+
         textvales = (TextView) findViewById(R.id.textvales);
         botonTickets = findViewById(R.id.bticono);
-
         botonAutoClick = (Button) findViewById(R.id.button3);
         botonTickets = (Button) findViewById(R.id.bticono);
         jades = (TextView) findViewById(R.id.cantidad_jades);
@@ -47,23 +50,28 @@ public class Tienda extends AppCompatActivity {
         //RECOGER DATOS
         Intent intent = getIntent();
         num_jades = Integer.parseInt(intent.getExtras().getString("num_jades", "0"));
+        tickets = intent.getIntExtra("tickets",0);
         incrementar = intent.getExtras().getInt("incrementar");
-
-
+        costo = intent.getIntExtra("costo", 12);
 
         //INSERTAR DATOS
         jades.setText("" + num_jades);
         botonAutoClick.setText(costo + " jades");
-        botonTickets.setText(tickets + "tickets");
+        botonTickets.setText("10 tickets");
         textvales.setText("" + tickets);
 
 
         botonTickets.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                iconInt = getIconint();
+                if(tickets == 1){
+                    iconInt = getIconint();
+                    tickets = 0;
+                }
                 Intent resultado = new Intent();
                 resultado.putExtra(KEY_NAME,iconInt);
+                resultado.putExtra(KEY_JADES,num_jades);
+                resultado.putExtra(KEY_TICKETS,tickets);
                 setResult(RESULT_OK,resultado);
                 finish();
             }
@@ -73,25 +81,16 @@ public class Tienda extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 restar();
-                tickets++;
                 cambiarview(v);
                 Intent operacion = new Intent();
                 operacion.putExtra(KEY_JADES,num_jades);
                 operacion.putExtra(KEY_INCREMENTAR,incrementar);
+                operacion.putExtra(KEY_TICKETS,tickets);
+                operacion.putExtra(KEY_COSTO,costo);
                 setResult(RESULT_OK,operacion);
                 finish();
             }
         });
-
-
-
-
-
-
-
-
-
-
     }
 
     public void cambiarview(View v){
@@ -115,7 +114,6 @@ public class Tienda extends AppCompatActivity {
 
 
     public void restar() {
-
         if (num_jades >= costo) {
             num_jades = num_jades - costo;
             incrementar++;
@@ -129,8 +127,6 @@ public class Tienda extends AppCompatActivity {
         Intent i = new Intent(this, MainActivity.class);
         i.putExtra("num", num_jades);
         i.putExtra("incrementar", incrementar);
-        //setResult(RESULT_OK, i);
-        //startActivity(i);
         finish();
     }
 }

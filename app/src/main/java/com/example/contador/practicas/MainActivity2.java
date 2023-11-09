@@ -48,22 +48,12 @@ public class MainActivity2 extends AppCompatActivity {
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(new PersonajesAdapter(context,p));
         t =  (TextView) findViewById(R.id.moreInfo);
+       // registerForContextMenu(rv);
 
     }
 
 
-    public boolean onContextItemSelected(@NonNull MenuItem item){
-        switch (item.getItemId()){
-            case 101:
-                Snackbar.make(findViewById(R.id.rootid),"Opción ns selecionada",Snackbar.LENGTH_LONG).show();
-                return true;
-            case 102:
-                Snackbar.make(findViewById(R.id.rootid),"Eliminado",Snackbar.LENGTH_LONG).show();
-                return true;
-            default:
-                return super.onContextItemSelected(item);
-        }
-    }
+
     public void moreInfo(View v){
         Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("https://hsr.hoyoverse.com/es-es/character?worldIndex=6"));
         startActivity(i);

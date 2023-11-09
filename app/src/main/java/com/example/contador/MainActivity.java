@@ -34,21 +34,29 @@ public class MainActivity extends AppCompatActivity {
     private ActivityResultLauncher<Intent> startForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
         public void onActivityResult(ActivityResult result) {
-            if(result != null && result.getResultCode() == RESULT_OK){
-                if(result.getData() != null && result.getData().getIntExtra(Tienda.KEY_NAME,R.drawable.dandinero) != 0){
-                    jadeic.setImageResource(result.getData().getIntExtra(Tienda.KEY_NAME,R.drawable.dandinero));
-                }
+            if (result != null && result.getResultCode() == RESULT_OK) {
+                if (result.getData() != null && result.getData().getIntExtra(Tienda.KEY_NAME, R.drawable.jade) != 0) {
+                    jadeic.setImageResource(result.getData().getIntExtra(Tienda.KEY_NAME, R.drawable.jade));
+                    jades = BigInteger.valueOf(result.getData().getIntExtra(Tienda.KEY_JADES, jades.intValue()));
 
-                if(result.getData() !=null && result.getData().getIntExtra(Tienda.KEY_JADES,jades.intValue()) >=0){
-                    if(jades.intValue() == result.getData().getIntExtra(Tienda.KEY_JADES,jades.intValue())){
-                        jades = BigInteger.valueOf(result.getData().getIntExtra(Tienda.KEY_JADES,jades.intValue()));
+                }
+                if (result.getData() != null && result.getData().getIntExtra(Tienda.KEY_JADES, jades.intValue()) >= 0) {
+                    if (jades.intValue() == result.getData().getIntExtra(Tienda.KEY_JADES, jades.intValue())) {
+                        jades = BigInteger.valueOf(result.getData().getIntExtra(Tienda.KEY_JADES, jades.intValue()));
                     }
-                    contador.setText(""+ result.getData().getIntExtra(Tienda.KEY_JADES,jades.intValue()));
-                    jades = BigInteger.valueOf(result.getData().getIntExtra(Tienda.KEY_JADES,0));
+                    contador.setText("" + result.getData().getIntExtra(Tienda.KEY_JADES, jades.intValue()));
+                    jades = BigInteger.valueOf(result.getData().getIntExtra(Tienda.KEY_JADES, 0));
 
                 }
-                if(result.getData() !=null && result.getData().getIntExtra(Tienda.KEY_INCREMENTAR,1)!= 1){
-                    incrementar = result.getData().getIntExtra(Tienda.KEY_INCREMENTAR,jades.intValue());
+                if (result.getData() != null && result.getData().getIntExtra(Tienda.KEY_INCREMENTAR, 1) != 1) {
+                    incrementar = result.getData().getIntExtra(Tienda.KEY_INCREMENTAR, jades.intValue());
+
+                }
+                if (result.getData() != null && result.getData().getIntExtra(Tienda.KEY_TICKETS, 0) != 0) {
+                    tickets = result.getData().getIntExtra(Tienda.KEY_TICKETS, 0);
+                }
+                if (result.getData() != null && result.getData().getIntExtra(Tienda.KEY_COSTO, 12) != 12) {
+                    costo = result.getData().getIntExtra(Tienda.KEY_COSTO, 12);
                 }
             }
         }
@@ -64,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
     BigInteger jades = new BigInteger("0");
 
     int incrementar = 1;
-    int costo = 100;
+    int costo = 12;
     int tickets = 0;
 
     //variables iconos
@@ -154,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
             incrementar++;
             contador.setText("" + jades);
             costo += 20;
-            tickets++;
+
             boton.setText(costo + " jades");
             crearHilos();
         }
@@ -219,10 +227,9 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(this, Tienda.class);
         //set data
         String num_jades = jades.toString();
-        String num_tickets = "" + tickets;
         i.putExtra("num_jades", num_jades);
-        i.putExtra("num_tickets", num_tickets);
-        i.putExtra("precio", costo);
+        i.putExtra("tickets", tickets);
+        i.putExtra("costo", costo);
         i.putExtra("incrementar",incrementar);
         startForResult.launch(i);
 
