@@ -96,7 +96,6 @@ public class Tienda extends AppCompatActivity {
     public void cambiarview(View v){
         jades.setText("" + num_jades);
         botonAutoClick.setText(costo + " jades");
-        botonTickets.setText(tickets + "tickets");
         textvales.setText("" + tickets);
     }
 
