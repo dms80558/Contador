@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                     incrementar = result.getData().getIntExtra(Tienda.KEY_INCREMENTAR, jades.intValue());
 
                 }
-                if (result.getData() != null && result.getData().getIntExtra(Tienda.KEY_TICKETS, 0) != 0) {
+                if (result.getData() != null && result.getData().getIntExtra(Tienda.KEY_TICKETS, 0) >=0) {
                     tickets = result.getData().getIntExtra(Tienda.KEY_TICKETS, 0);
                 }
                 if (result.getData() != null && result.getData().getIntExtra(Tienda.KEY_COSTO, 12) != 12) {

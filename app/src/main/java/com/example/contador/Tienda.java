@@ -64,14 +64,14 @@ public class Tienda extends AppCompatActivity {
         botonTickets.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(tickets == 1){
+                Intent resultado = new Intent();
+                if(tickets == 10){
                     iconInt = getIconint();
                     tickets = 0;
                 }
-                Intent resultado = new Intent();
+                resultado.putExtra(KEY_TICKETS,tickets);
                 resultado.putExtra(KEY_NAME,iconInt);
                 resultado.putExtra(KEY_JADES,num_jades);
-                resultado.putExtra(KEY_TICKETS,tickets);
                 setResult(RESULT_OK,resultado);
                 finish();
             }
