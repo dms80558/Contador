@@ -21,6 +21,7 @@ public class Tienda extends AppCompatActivity {
     public static final String KEY_INCREMENTAR = "INCREMENTAR";
     public static final String KEY_TICKETS = "TICKETS";
     public static final String KEY_COSTO = "COSTO";
+    public static final String KEY_HILOS = "HILOS";
 
     Button botonAutoClick;
     Button botonTickets;
@@ -82,11 +83,13 @@ public class Tienda extends AppCompatActivity {
             public void onClick(View v) {
                 restar();
                 cambiarview(v);
+                boolean hilos = true;
                 Intent operacion = new Intent();
                 operacion.putExtra(KEY_JADES,num_jades);
                 operacion.putExtra(KEY_INCREMENTAR,incrementar);
                 operacion.putExtra(KEY_TICKETS,tickets);
                 operacion.putExtra(KEY_COSTO,costo);
+                operacion.putExtra(KEY_HILOS,hilos);
                 setResult(RESULT_OK,operacion);
                 finish();
             }

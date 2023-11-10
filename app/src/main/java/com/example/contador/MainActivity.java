@@ -1,5 +1,7 @@
 package com.example.contador;
 
+import static com.example.contador.Tienda.KEY_HILOS;
+
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -22,6 +24,7 @@ import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,9 +53,14 @@ public class MainActivity extends AppCompatActivity {
                     jades = BigInteger.valueOf(result.getData().getIntExtra(Tienda.KEY_JADES, 0));
 
                 }
-                if (result.getData() != null && result.getData().getIntExtra(Tienda.KEY_INCREMENTAR, 1) != 1) {
+                if (result.getData() != null && result.getData().getIntExtra(Tienda.KEY_INCREMENTAR, 1) > 1) {
                     incrementar = result.getData().getIntExtra(Tienda.KEY_INCREMENTAR, jades.intValue());
+                    crearHilos();
 
+
+                }
+                if(result.getData() != null && result.getData().getBooleanExtra(Tienda.KEY_HILOS, false) != false){
+                    crearHilo = true;
                 }
                 if (result.getData() != null && result.getData().getIntExtra(Tienda.KEY_TICKETS, 0) != 0) {
                     tickets = result.getData().getIntExtra(Tienda.KEY_TICKETS, 0);
@@ -65,9 +73,11 @@ public class MainActivity extends AppCompatActivity {
     });
 
     MediaPlayer player;
+
     TextView contador;
     Button boton;
     Button reset;
+    boolean crearHilo = false;
 
     //Button icono;
 
@@ -93,15 +103,12 @@ public class MainActivity extends AppCompatActivity {
         reset = (Button) findViewById(R.id.reset);
         //NO TE CARRULA LA IMAGEN
         jadeic = (ImageView) findViewById(R.id.jade);
-
+        contador.setText("" + jades);
         contador.setText("" + jades);
 
 
 
 
-
-
-        contador.setText("" + jades);
 
 
 
@@ -211,9 +218,7 @@ public class MainActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                ScaleAnimation fade_in = new ScaleAnimation(0.7f, 1.2f, 0.7f, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-                fade_in.setDuration(100);
-                jadeic.startAnimation(fade_in);
+
                 jades = jades.add(BigInteger.valueOf(incrementar));
 
                 handler.post(() -> {
