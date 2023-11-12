@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
     Button boton;
     Button reset;
 
-    //Button icono;
+
 
     //variables a pasar
     BigInteger jades = new BigInteger("0");

@@ -60,6 +60,7 @@ public class PersonajesAdapter extends RecyclerView.Adapter<PersonajesAdapter.Vi
         }
 
 
+
         public void bind(Personajes personajes){
             nombre.setText(personajes.getNombre());
             imagen.setImageResource(personajes.getImagen());

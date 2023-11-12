@@ -146,6 +146,7 @@ public class Tienda extends AppCompatActivity {
         return r;
     }
 
+
     public void goBack(View v) {
         Intent i = new Intent(this, MainActivity.class);
         i.putExtra("num", num_jades);
