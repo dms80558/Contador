@@ -18,7 +18,7 @@ import java.util.Random;
 
 public class Tienda extends AppCompatActivity {
     public static final String KEY_NAME = "NAME";
-    public static final String KEY_JADES ="JADES";
+    public static final String KEY_JADES = "JADES";
     public static final String KEY_INCREMENTAR = "INCREMENTAR";
     public static final String KEY_TICKETS = "TICKETS";
     public static final String KEY_COSTO = "COSTO";
@@ -39,7 +39,6 @@ public class Tienda extends AppCompatActivity {
     int iconInt = R.drawable.jade;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,10 +54,10 @@ public class Tienda extends AppCompatActivity {
         //RECOGER DATOS
         Intent intent = getIntent();
         num_jades = new BigInteger(intent.getExtras().getString("num_jades"));
-        tickets = intent.getIntExtra("tickets",0);
+        tickets = intent.getIntExtra("tickets", 0);
         incrementar = intent.getExtras().getInt("incrementar");
         costo = intent.getIntExtra("costo", 12);
-        iconInt = intent.getIntExtra("icono",iconInt);
+        iconInt = intent.getIntExtra("icono", iconInt);
 
         //INSERTAR DATOS
         jades.setText(FormatoNum(num_jades));
@@ -71,14 +70,14 @@ public class Tienda extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent resultado = new Intent();
-                if(tickets >=10){
+                if (tickets >= 10) {
                     iconInt = getIconint();
                     tickets -= 10;
                 }
-                resultado.putExtra(KEY_NAME,iconInt);
-                resultado.putExtra(KEY_TICKETS,tickets);
-                resultado.putExtra(KEY_JADES,num_jades.toString());
-                setResult(RESULT_OK,resultado);
+                resultado.putExtra(KEY_NAME, iconInt);
+                resultado.putExtra(KEY_TICKETS, tickets);
+                resultado.putExtra(KEY_JADES, num_jades.toString());
+                setResult(RESULT_OK, resultado);
                 finish();
             }
         });
@@ -89,18 +88,18 @@ public class Tienda extends AppCompatActivity {
                 restar();
                 cambiarview(v);
                 Intent operacion = new Intent();
-                operacion.putExtra(KEY_JADES,num_jades.toString());
-                operacion.putExtra(KEY_INCREMENTAR,incrementar);
-                operacion.putExtra(KEY_TICKETS,tickets);
-                operacion.putExtra(KEY_COSTO,costo);
-                operacion.putExtra(KEY_NAME,iconInt);
-                setResult(RESULT_OK,operacion);
+                operacion.putExtra(KEY_JADES, num_jades.toString());
+                operacion.putExtra(KEY_INCREMENTAR, incrementar);
+                operacion.putExtra(KEY_TICKETS, tickets);
+                operacion.putExtra(KEY_COSTO, costo);
+                operacion.putExtra(KEY_NAME, iconInt);
+                setResult(RESULT_OK, operacion);
                 finish();
             }
         });
     }
 
-    public void cambiarview(View v){
+    public void cambiarview(View v) {
         jades.setText(FormatoNum(num_jades));
         botonJades.setText(costo + " jades");
         textvales.setText("" + tickets);
@@ -108,11 +107,11 @@ public class Tienda extends AppCompatActivity {
 
 
     public int getIconint() {
-        int r =0;
+        int r = 0;
         //cambiar icono
         iconos = new int[]{R.drawable.sampo2, R.drawable.asta, R.drawable.dandinero, R.drawable.tingyun,
                 R.drawable.danheng2, R.drawable.topaz, R.drawable.jade, R.drawable.sietedemarzo,
-                R.drawable.pompom, R.drawable.yanqing,R.drawable.sampojades,R.drawable.clara};
+                R.drawable.pompom, R.drawable.yanqing, R.drawable.sampojades, R.drawable.clara};
         Random random = new Random();
         int randomIndex = random.nextInt(iconos.length);
         r = iconos[randomIndex];
@@ -146,7 +145,6 @@ public class Tienda extends AppCompatActivity {
         }
         return r;
     }
-
 
 
     public void goBack(View v) {

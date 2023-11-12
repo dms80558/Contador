@@ -51,7 +51,6 @@ public class PersonajesAdapter extends RecyclerView.Adapter<PersonajesAdapter.Vi
         CardView cardView;
 
         ViewHolder(@NonNull View v){
-
             super(v);
             nombre = v.findViewById(R.id.nombreper);
             imagen =  v.findViewById(R.id.personimg);

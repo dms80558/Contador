@@ -43,21 +43,21 @@ public class MainActivity extends AppCompatActivity {
                     //jades = BigInteger.valueOf(result.getData().getIntExtra(Tienda.KEY_JADES, jades.intValue()));
 
                 }
-                if (result.getData() != null && result.getData().getStringExtra(Tienda.KEY_JADES) !=null) {
+                if (result.getData() != null && result.getData().getStringExtra(Tienda.KEY_JADES) != null) {
                     //if (jades.intValue() == result.getData().getIntExtra(Tienda.KEY_JADES, jades.intValue())) {
                     jades = new BigInteger(result.getData().getStringExtra(Tienda.KEY_JADES));
                     //}
                     contador.setText("" + result.getData().getIntExtra(Tienda.KEY_JADES, jades.intValue()));
-                    jades = new BigInteger (result.getData().getStringExtra(Tienda.KEY_JADES));
+                    jades = new BigInteger(result.getData().getStringExtra(Tienda.KEY_JADES));
 
                 }
                 if (result.getData() != null && result.getData().getIntExtra(Tienda.KEY_INCREMENTAR, 1) != 1) {
                     incrementar = result.getData().getIntExtra(Tienda.KEY_INCREMENTAR, jades.intValue());
-                    if(incrementar==2){
+                    if (incrementar == 2) {
                         crearHilos();
                     }
                 }
-                if (result.getData() != null && result.getData().getIntExtra(Tienda.KEY_TICKETS, 0) >=0) {
+                if (result.getData() != null && result.getData().getIntExtra(Tienda.KEY_TICKETS, 0) >= 0) {
                     tickets = result.getData().getIntExtra(Tienda.KEY_TICKETS, 0);
                 }
                 if (result.getData() != null && result.getData().getIntExtra(Tienda.KEY_COSTO, 12) != 12) {
@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //MUSICA
-        player = MediaPlayer.create(this,R.raw.song);
+        player = MediaPlayer.create(this, R.raw.song);
         player.setLooping(true);
         player.start();
 
@@ -172,8 +172,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
     private void precaucion() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("¿Deseas resetear el contador?");
@@ -221,9 +219,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void play(View v){
-        if(player == null){
-            player = MediaPlayer.create(this,R.raw.song);
+    public void play(View v) {
+        if (player == null) {
+            player = MediaPlayer.create(this, R.raw.song);
             player.setLooping(true);
             player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
@@ -234,17 +232,20 @@ public class MainActivity extends AppCompatActivity {
         }
         player.start();
     }
-    public void stop(View v){
+
+    public void stop(View v) {
         stopPlayer();
     }
+
     private void stopPlayer() {
-        if(player != null){
+        if (player != null) {
             player.release();
             player = null;
         }
     }
+
     @Override
-    protected void onStop(){
+    protected void onStop() {
         super.onStop();
         stopPlayer();
     }
@@ -258,8 +259,8 @@ public class MainActivity extends AppCompatActivity {
         i.putExtra("num_jades", jades.toString());
         i.putExtra("tickets", tickets);
         i.putExtra("costo", costo);
-        i.putExtra("incrementar",incrementar);
-        i.putExtra("icono",iconInt);
+        i.putExtra("incrementar", incrementar);
+        i.putExtra("icono", iconInt);
         startForResult.launch(i);
 
     }

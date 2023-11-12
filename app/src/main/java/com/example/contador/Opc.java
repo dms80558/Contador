@@ -29,7 +29,6 @@ public class Opc extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.actionmenu, menu);
         return true;
-
     }
 
     //metodo para asignar funciones
