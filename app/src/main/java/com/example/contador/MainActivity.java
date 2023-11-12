@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
                         crearHilos();
                     }
                 }
+
                 if (result.getData() != null && result.getData().getIntExtra(Tienda.KEY_TICKETS, 0) >= 0) {
                     tickets = result.getData().getIntExtra(Tienda.KEY_TICKETS, 0);
                 }
