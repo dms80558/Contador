@@ -39,20 +39,23 @@ public class MainActivity extends AppCompatActivity {
             if (result != null && result.getResultCode() == RESULT_OK) {
                 if (result.getData() != null && result.getData().getIntExtra(Tienda.KEY_NAME, R.drawable.jade) != 0) {
                     jadeic.setImageResource(result.getData().getIntExtra(Tienda.KEY_NAME, R.drawable.jade));
-                    jades = BigInteger.valueOf(result.getData().getIntExtra(Tienda.KEY_JADES, jades.intValue()));
+                    jades = new BigInteger(result.getData().getStringExtra(Tienda.KEY_JADES));
+                    //jades = BigInteger.valueOf(result.getData().getIntExtra(Tienda.KEY_JADES, jades.intValue()));
 
                 }
-                if (result.getData() != null && result.getData().getIntExtra(Tienda.KEY_JADES, jades.intValue()) >= 0) {
-                    if (jades.intValue() == result.getData().getIntExtra(Tienda.KEY_JADES, jades.intValue())) {
-                        jades = BigInteger.valueOf(result.getData().getIntExtra(Tienda.KEY_JADES, jades.intValue()));
-                    }
+                if (result.getData() != null && result.getData().getStringExtra(Tienda.KEY_JADES) !=null) {
+                    //if (jades.intValue() == result.getData().getIntExtra(Tienda.KEY_JADES, jades.intValue())) {
+                    jades = new BigInteger(result.getData().getStringExtra(Tienda.KEY_JADES));
+                    //}
                     contador.setText("" + result.getData().getIntExtra(Tienda.KEY_JADES, jades.intValue()));
-                    jades = BigInteger.valueOf(result.getData().getIntExtra(Tienda.KEY_JADES, 0));
+                    jades = new BigInteger (result.getData().getStringExtra(Tienda.KEY_JADES));
 
                 }
                 if (result.getData() != null && result.getData().getIntExtra(Tienda.KEY_INCREMENTAR, 1) != 1) {
                     incrementar = result.getData().getIntExtra(Tienda.KEY_INCREMENTAR, jades.intValue());
-
+                    if(incrementar==2){
+                        crearHilos();
+                    }
                 }
                 if (result.getData() != null && result.getData().getIntExtra(Tienda.KEY_TICKETS, 0) >=0) {
                     tickets = result.getData().getIntExtra(Tienda.KEY_TICKETS, 0);
@@ -75,12 +78,12 @@ public class MainActivity extends AppCompatActivity {
     BigInteger jades = new BigInteger("0");
 
     int incrementar = 1;
-    int costo = 12;
+    int costo = 120;
     int tickets = 0;
 
     //variables iconos
     ImageView jadeic;
-
+    int iconInt;
     int[] iconos;
 
     @Override
@@ -95,16 +98,13 @@ public class MainActivity extends AppCompatActivity {
         jadeic = (ImageView) findViewById(R.id.jade);
 
         contador.setText("" + jades);
-
-
-
-
-
-
         contador.setText("" + jades);
 
 
-
+        //MUSICA
+        player = MediaPlayer.create(this,R.raw.song);
+        player.setLooping(true);
+        player.start();
 
         //Listener para el metodo precuacion
         reset.setOnClickListener(new View.OnClickListener() {
@@ -171,10 +171,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /*public void reset(View v) {
-        jades = BigInteger.valueOf(0);
-        contador.setText("" + jades);
-    }*/
+
 
 
     private void precaucion() {
@@ -244,7 +241,6 @@ public class MainActivity extends AppCompatActivity {
         if(player != null){
             player.release();
             player = null;
-            Toast.makeText(this, "Ns", Toast.LENGTH_SHORT);
         }
     }
     @Override
@@ -259,10 +255,11 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(this, Tienda.class);
         //set data
         String num_jades = jades.toString();
-        i.putExtra("num_jades", num_jades);
+        i.putExtra("num_jades", jades.toString());
         i.putExtra("tickets", tickets);
         i.putExtra("costo", costo);
         i.putExtra("incrementar",incrementar);
+        i.putExtra("icono",iconInt);
         startForResult.launch(i);
 
     }
