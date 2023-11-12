@@ -49,7 +49,7 @@ public class MainActivity2 extends AppCompatActivity {
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(new PersonajesAdapter(context,p));
         t =  (TextView) findViewById(R.id.moreInfo);
-       // registerForContextMenu(rv);
+
 
     }
 

@@ -54,10 +54,8 @@ public class Tienda extends AppCompatActivity {
 
         //RECOGER DATOS
         Intent intent = getIntent();
-
         num_jades = new BigInteger(intent.getExtras().getString("num_jades"));
         tickets = intent.getIntExtra("tickets",0);
-
         incrementar = intent.getExtras().getInt("incrementar");
         costo = intent.getIntExtra("costo", 12);
         iconInt = intent.getIntExtra("icono",iconInt);

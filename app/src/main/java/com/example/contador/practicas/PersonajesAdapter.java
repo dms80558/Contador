@@ -56,7 +56,7 @@ public class PersonajesAdapter extends RecyclerView.Adapter<PersonajesAdapter.Vi
             nombre = v.findViewById(R.id.nombreper);
             imagen =  v.findViewById(R.id.personimg);
             cardView = v.findViewById(R.id.card);
-            //cardView.setOnClickListener(this);
+
 
         }
 

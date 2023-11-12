@@ -35,7 +35,6 @@ public class Opc extends AppCompatActivity {
     //metodo para asignar funciones
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
         int id = item.getItemId();
-
         if(id == R.id.item1){
             Toast.makeText(this,"Opcion 1", Toast.LENGTH_SHORT).show();
         } else if(id == R.id.item2){
@@ -43,7 +42,6 @@ public class Opc extends AppCompatActivity {
         } else if (id == R.id.item3) {
             Toast.makeText(this,"Opcion 3", Toast.LENGTH_SHORT).show();
         }
-
         return super.onOptionsItemSelected(item);
     }
 
