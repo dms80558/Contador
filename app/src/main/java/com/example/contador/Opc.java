@@ -47,7 +47,6 @@ public class Opc extends AppCompatActivity {
 
 
 
-
     //metodos para reproduccion musica
     public void play(View v){
         if(player == null){

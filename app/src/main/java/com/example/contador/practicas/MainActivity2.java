@@ -53,7 +53,6 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
 
-
     public void moreInfo(View v){
         Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("https://hsr.hoyoverse.com/es-es/character?worldIndex=6"));
         startActivity(i);
