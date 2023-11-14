@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,24 +18,25 @@ import java.util.Random;
 
 public class Tienda extends AppCompatActivity {
     public static final String KEY_NAME = "NAME";
-    public static final String KEY_JADES ="JADES";
+    public static final String KEY_JADES = "JADES";
     public static final String KEY_INCREMENTAR = "INCREMENTAR";
     public static final String KEY_TICKETS = "TICKETS";
     public static final String KEY_COSTO = "COSTO";
-    public static final String KEY_HILOS = "HILOS";
 
-    Button botonAutoClick;
+    //Button botonAutoClick;
+
+    LinearLayout botonAutoClick;
+    Button botonJades;
     Button botonTickets;
     TextView textvales;
     TextView jades;
-    int num_jades = 0;
+    BigInteger num_jades = BigInteger.ZERO;
     int[] iconos;
     int tickets = 0;
     int costo = 12;
     int incrementar = 1;
 
     int iconInt = R.drawable.jade;
-
 
 
     @Override
@@ -44,20 +46,22 @@ public class Tienda extends AppCompatActivity {
 
         textvales = (TextView) findViewById(R.id.textvales);
         botonTickets = findViewById(R.id.bticono);
-        botonAutoClick = (Button) findViewById(R.id.button3);
+        botonAutoClick = (LinearLayout) findViewById(R.id.botonAutoClick);
         botonTickets = (Button) findViewById(R.id.bticono);
+        botonJades = (Button) findViewById(R.id.button3);
         jades = (TextView) findViewById(R.id.cantidad_jades);
 
         //RECOGER DATOS
         Intent intent = getIntent();
-        num_jades = Integer.parseInt(intent.getExtras().getString("num_jades", "0"));
-        tickets = intent.getIntExtra("tickets",0);
+        num_jades = new BigInteger(intent.getExtras().getString("num_jades"));
+        tickets = intent.getIntExtra("tickets", 0);
         incrementar = intent.getExtras().getInt("incrementar");
         costo = intent.getIntExtra("costo", 12);
+        iconInt = intent.getIntExtra("icono", iconInt);
 
         //INSERTAR DATOS
-        jades.setText("" + num_jades);
-        botonAutoClick.setText(costo + " jades");
+        jades.setText(FormatoNum(num_jades));
+        botonJades.setText(costo + " jades");
         botonTickets.setText("10 tickets");
         textvales.setText("" + tickets);
 
@@ -65,15 +69,15 @@ public class Tienda extends AppCompatActivity {
         botonTickets.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(tickets == 1){
-                    iconInt = getIconint();
-                    tickets = 0;
-                }
                 Intent resultado = new Intent();
-                resultado.putExtra(KEY_NAME,iconInt);
-                resultado.putExtra(KEY_JADES,num_jades);
-                resultado.putExtra(KEY_TICKETS,tickets);
-                setResult(RESULT_OK,resultado);
+                if (tickets >= 10) {
+                    iconInt = getIconint();
+                    tickets -= 10;
+                }
+                resultado.putExtra(KEY_NAME, iconInt);
+                resultado.putExtra(KEY_TICKETS, tickets);
+                resultado.putExtra(KEY_JADES, num_jades.toString());
+                setResult(RESULT_OK, resultado);
                 finish();
             }
         });
@@ -83,31 +87,31 @@ public class Tienda extends AppCompatActivity {
             public void onClick(View v) {
                 restar();
                 cambiarview(v);
-                boolean hilos = true;
                 Intent operacion = new Intent();
-                operacion.putExtra(KEY_JADES,num_jades);
-                operacion.putExtra(KEY_INCREMENTAR,incrementar);
-                operacion.putExtra(KEY_TICKETS,tickets);
-                operacion.putExtra(KEY_COSTO,costo);
-                operacion.putExtra(KEY_HILOS,hilos);
-                setResult(RESULT_OK,operacion);
+                operacion.putExtra(KEY_JADES, num_jades.toString());
+                operacion.putExtra(KEY_INCREMENTAR, incrementar);
+                operacion.putExtra(KEY_TICKETS, tickets);
+                operacion.putExtra(KEY_COSTO, costo);
+                operacion.putExtra(KEY_NAME, iconInt);
+                setResult(RESULT_OK, operacion);
                 finish();
             }
         });
     }
 
-    public void cambiarview(View v){
-        jades.setText("" + num_jades);
-        botonAutoClick.setText(costo + " jades");
+    public void cambiarview(View v) {
+        jades.setText(FormatoNum(num_jades));
+        botonJades.setText(costo + " jades");
         textvales.setText("" + tickets);
     }
 
 
     public int getIconint() {
-        int r =0;
+        int r = 0;
         //cambiar icono
         iconos = new int[]{R.drawable.sampo2, R.drawable.asta, R.drawable.dandinero, R.drawable.tingyun,
-                R.drawable.danheng2, R.drawable.topaz, R.drawable.jade, R.drawable.sietedemarzo, R.drawable.pompom, R.drawable.pompom, R.drawable.yanqing};
+                R.drawable.danheng2, R.drawable.topaz, R.drawable.jade, R.drawable.sietedemarzo,
+                R.drawable.pompom, R.drawable.yanqing, R.drawable.sampojades, R.drawable.clara};
         Random random = new Random();
         int randomIndex = random.nextInt(iconos.length);
         r = iconos[randomIndex];
@@ -116,12 +120,30 @@ public class Tienda extends AppCompatActivity {
 
 
     public void restar() {
-        if (num_jades >= costo) {
-            num_jades = num_jades - costo;
+        if (num_jades.compareTo(BigInteger.valueOf(costo)) >= 0) {
+            num_jades = num_jades.subtract(BigInteger.valueOf(costo));
             incrementar++;
             costo += 20;
             tickets++;
         }
+    }
+
+
+    public String FormatoNum(BigInteger num) {
+        String r = "";
+        if (num.compareTo(BigInteger.valueOf(1000)) < 0) {
+            r = ("" + num.toString());
+        } else if (num.compareTo(BigInteger.valueOf(1000_000)) > 0 && num.compareTo(BigInteger.valueOf(1000_000_000)) <= 0) {
+            BigInteger mill = num.divide(BigInteger.valueOf(1000_000));
+            r = (mill.toString() + "K");
+        } else if (num.compareTo(BigInteger.valueOf(1000_000_000)) > 0 && num.compareTo(BigInteger.valueOf(1_000_000_000_000l)) <= 0) {
+            BigInteger trill = num.divide(BigInteger.valueOf(1000_000_000));
+            r = (trill.toString() + "M");
+        } else {
+            BigInteger trill = num.divide(BigInteger.valueOf(1000_000_000_000l));
+            r = ("" + num.toString());
+        }
+        return r;
     }
 
 

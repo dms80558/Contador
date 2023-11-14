@@ -1,7 +1,5 @@
 package com.example.contador;
 
-import static com.example.contador.Tienda.KEY_HILOS;
-
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -24,7 +22,6 @@ import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,27 +39,26 @@ public class MainActivity extends AppCompatActivity {
             if (result != null && result.getResultCode() == RESULT_OK) {
                 if (result.getData() != null && result.getData().getIntExtra(Tienda.KEY_NAME, R.drawable.jade) != 0) {
                     jadeic.setImageResource(result.getData().getIntExtra(Tienda.KEY_NAME, R.drawable.jade));
-                    jades = BigInteger.valueOf(result.getData().getIntExtra(Tienda.KEY_JADES, jades.intValue()));
+                    jades = new BigInteger(result.getData().getStringExtra(Tienda.KEY_JADES));
+                    //jades = BigInteger.valueOf(result.getData().getIntExtra(Tienda.KEY_JADES, jades.intValue()));
 
                 }
-                if (result.getData() != null && result.getData().getIntExtra(Tienda.KEY_JADES, jades.intValue()) >= 0) {
-                    if (jades.intValue() == result.getData().getIntExtra(Tienda.KEY_JADES, jades.intValue())) {
-                        jades = BigInteger.valueOf(result.getData().getIntExtra(Tienda.KEY_JADES, jades.intValue()));
-                    }
+                if (result.getData() != null && result.getData().getStringExtra(Tienda.KEY_JADES) != null) {
+                    //if (jades.intValue() == result.getData().getIntExtra(Tienda.KEY_JADES, jades.intValue())) {
+                    jades = new BigInteger(result.getData().getStringExtra(Tienda.KEY_JADES));
+                    //}
                     contador.setText("" + result.getData().getIntExtra(Tienda.KEY_JADES, jades.intValue()));
-                    jades = BigInteger.valueOf(result.getData().getIntExtra(Tienda.KEY_JADES, 0));
+                    jades = new BigInteger(result.getData().getStringExtra(Tienda.KEY_JADES));
 
                 }
-                if (result.getData() != null && result.getData().getIntExtra(Tienda.KEY_INCREMENTAR, 1) > 1) {
+                if (result.getData() != null && result.getData().getIntExtra(Tienda.KEY_INCREMENTAR, 1) != 1) {
                     incrementar = result.getData().getIntExtra(Tienda.KEY_INCREMENTAR, jades.intValue());
-                    crearHilos();
-
-
+                    if (incrementar == 2) {
+                        crearHilos();
+                    }
                 }
-                if(result.getData() != null && result.getData().getBooleanExtra(Tienda.KEY_HILOS, false) != false){
-                    crearHilo = true;
-                }
-                if (result.getData() != null && result.getData().getIntExtra(Tienda.KEY_TICKETS, 0) != 0) {
+
+                if (result.getData() != null && result.getData().getIntExtra(Tienda.KEY_TICKETS, 0) >= 0) {
                     tickets = result.getData().getIntExtra(Tienda.KEY_TICKETS, 0);
                 }
                 if (result.getData() != null && result.getData().getIntExtra(Tienda.KEY_COSTO, 12) != 12) {
@@ -72,25 +68,24 @@ public class MainActivity extends AppCompatActivity {
         }
     });
 
-    MediaPlayer player;
 
+    MediaPlayer player;
     TextView contador;
     Button boton;
     Button reset;
-    boolean crearHilo = false;
 
-    //Button icono;
+
 
     //variables a pasar
     BigInteger jades = new BigInteger("0");
 
     int incrementar = 1;
-    int costo = 12;
+    int costo = 120;
     int tickets = 0;
 
     //variables iconos
     ImageView jadeic;
-
+    int iconInt;
     int[] iconos;
 
     @Override
@@ -103,15 +98,15 @@ public class MainActivity extends AppCompatActivity {
         reset = (Button) findViewById(R.id.reset);
         //NO TE CARRULA LA IMAGEN
         jadeic = (ImageView) findViewById(R.id.jade);
+
         contador.setText("" + jades);
         contador.setText("" + jades);
 
 
-
-
-
-
-
+        //MUSICA
+        player = MediaPlayer.create(this, R.raw.song);
+        player.setLooping(true);
+        player.start();
 
         //Listener para el metodo precuacion
         reset.setOnClickListener(new View.OnClickListener() {
@@ -178,11 +173,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /*public void reset(View v) {
-        jades = BigInteger.valueOf(0);
-        contador.setText("" + jades);
-    }*/
-
 
     private void precaucion() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -218,7 +208,9 @@ public class MainActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-
+                ScaleAnimation fade_in = new ScaleAnimation(0.7f, 1.2f, 0.7f, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                fade_in.setDuration(100);
+                jadeic.startAnimation(fade_in);
                 jades = jades.add(BigInteger.valueOf(incrementar));
 
                 handler.post(() -> {
@@ -229,9 +221,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void play(View v){
-        if(player == null){
-            player = MediaPlayer.create(this,R.raw.song);
+    public void play(View v) {
+        if (player == null) {
+            player = MediaPlayer.create(this, R.raw.song);
             player.setLooping(true);
             player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
@@ -242,18 +234,20 @@ public class MainActivity extends AppCompatActivity {
         }
         player.start();
     }
-    public void stop(View v){
+
+    public void stop(View v) {
         stopPlayer();
     }
+
     private void stopPlayer() {
-        if(player != null){
+        if (player != null) {
             player.release();
             player = null;
-            Toast.makeText(this, "Ns", Toast.LENGTH_SHORT);
         }
     }
+
     @Override
-    protected void onStop(){
+    protected void onStop() {
         super.onStop();
         stopPlayer();
     }
@@ -264,10 +258,11 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(this, Tienda.class);
         //set data
         String num_jades = jades.toString();
-        i.putExtra("num_jades", num_jades);
+        i.putExtra("num_jades", jades.toString());
         i.putExtra("tickets", tickets);
         i.putExtra("costo", costo);
-        i.putExtra("incrementar",incrementar);
+        i.putExtra("incrementar", incrementar);
+        i.putExtra("icono", iconInt);
         startForResult.launch(i);
 
     }

@@ -43,12 +43,12 @@ public class MainActivity2 extends AppCompatActivity {
         p.add(new Personajes("Yanquing", R.drawable.yanqing));
         p.add(new Personajes("Siete de marzo", R.drawable.sietedemarzo));
         p.add(new Personajes("Topaz", R.drawable.topaz));
+        p.add(new Personajes("Clara", R.drawable.clara));
 
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(new PersonajesAdapter(context,p));
         t =  (TextView) findViewById(R.id.moreInfo);
-       // registerForContextMenu(rv);
 
     }
 
