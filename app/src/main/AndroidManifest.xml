@@ -34,8 +34,10 @@
         <activity android:name=".Tienda">
 
         </activity>
+        <activity android:name=".PantallaInicio"/>
+
         <activity
-            android:name=".PantallaInicio"
+            android:name=".IniciarSesion"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
