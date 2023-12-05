@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 
 public class MyDatabaseHelper extends SQLiteOpenHelper {
     private Context context;
-    private static final String DATABASE_NAME = "Users.db";
+    private static final String DATABASE_NAME = "users.db";
     private static final int DATABASE_VERSION = 1;
     private static final String TABLE_NAME = "usuarios";
     private static final String USER_ID = "_id";
@@ -41,14 +41,14 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-//RECORDAR QUE EN UN PRINCIPIO ESTE METODO SOLO LO USO PARA EL REGISTRO POR LO QUE NO NECESITO AÑADIR EL SCORE
+    //RECORDAR QUE EN UN PRINCIPIO ESTE METODO SOLO LO USO PARA EL REGISTRO POR LO QUE NO NECESITO AÑADIR EL SCORE
     public void addUser(String nombreuser, String password){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
         cv.put(COLUMN_USERNAME, nombreuser);
         cv.put(COLUMN_PASSWORD, password);
-       // cv.put(COLUMN_SCORE, score);
+        // cv.put(COLUMN_SCORE, score);
         long result = db.insert(TABLE_NAME,null, cv);
         if(result == -1){
             Toast.makeText(context, "No se a podido insertar :'(", Toast.LENGTH_SHORT).show();
@@ -100,3 +100,5 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
 }
+
+

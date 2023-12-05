@@ -24,7 +24,7 @@
             android:layout_height="76dp"
             android:defaultFocusHighlightEnabled="true"
             android:hint="USUARIO"
-            android:inputType="textPassword"
+
             android:textColorHint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -68,6 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Confirmar"
+            android:onClick="RegistrarDataUser"
             android:layout_marginLeft="115dp"
             android:layout_marginBottom="40dp"
             android:layout_marginTop="8dp"

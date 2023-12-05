@@ -9,47 +9,74 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 public class DBHelper extends SQLiteOpenHelper {
-    private static final String DBNAME ="login.db";
-    public DBHelper(Context context) {
-        super(context, "login.db",null,1);
+    private Context context;
+    private static final String DATABASE_NAME = "users.db";
+    private static final int DATABASE_VERSION = 1;
+    public static final String TABLE_NAME = "usuarios";
+    private static final String USER_ID = "_id";
+    public static final String COLUMN_USERNAME = "nombre_usuario";
+    public static final String COLUMN_PASSWORD = "contraseña";
+    public static final String COLUMN_SCORE = "puntos";
+
+    public DBHelper(@Nullable Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.context = context;
+    }
+
+
+    @Override
+    public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        String query = "CREATE TABLE " + TABLE_NAME +
+                " (" + USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_USERNAME + " TEXT, " +
+                COLUMN_PASSWORD + " TEXT, " +
+                COLUMN_SCORE + " TEXT);";
+        sqLiteDatabase.execSQL(query);
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table users(usuario TEXT primary key, password TEXT)");
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
+        sqLiteDatabase.execSQL("drop table if exists users");
     }
 
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("drop table if exists users");
-    }
-
-    public Boolean insertData (String usuario,String password){
+    public Boolean insertData(String username, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put("usuario",usuario);
-        values.put("password",password);
+        values.put("username", COLUMN_USERNAME);
+        values.put("password", COLUMN_PASSWORD);
 
-        long result = db.insert("users",null,values);
-        if(result ==-1) return false;
+        long result = db.insert("usuarios", null, values);
+        if (result == -1) return false;
         else
             return true;
     }
 
-    public Boolean checkusername(String username){
+    public Boolean checkUsername(String username) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("select * from users where usuraio=?", new String[] {username});
-        if(cursor.getCount()>0)
+        String [] u = {username};
+        Cursor cursor = db.rawQuery("select * from usuarios where nombre_usuario=?", u);
+        if (cursor.getCount() > 0)
             return true;
         else
             return false;
     }
 
-    public Boolean checkusuariopassword(String username, String password){
+    public Boolean checkPassword(String password) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("select * from users where usuraio=? and password=?", new String[] {username,password});
-        if(cursor.getCount()>0)
+        String [] u = {password};
+        Cursor cursor = db.rawQuery("select * from usuarios where contraseña=?", u);
+        if (cursor.getCount() > 0)
+            return true;
+        else
+            return false;
+    }
+    public Boolean checkuserNamePassword(String username, String password) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String [] u = {username};
+        String [] p = {password};
+        Cursor cursor = db.rawQuery("select * from usuarios where nombre_usuario=? and contraseña=?", u );
+        if (cursor.getCount()>0)
             return true;
         else
             return false;

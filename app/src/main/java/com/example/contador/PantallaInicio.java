@@ -65,7 +65,7 @@ public class PantallaInicio extends AppCompatActivity {
 
     }
     public void irOpciones(View v){
-        Intent i = new Intent(this, Opc.class);
+        Intent i = new Intent(this, IniciarSesion.class);
         startActivity(i);
     }
 
