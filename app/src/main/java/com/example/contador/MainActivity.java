@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
                 userText = result.getData().getStringExtra("nombre_usuario");
                 if (result.getData() != null && result.getData().getIntExtra(Tienda.KEY_NAME, R.drawable.jade) != 0) {
                     jadeic.setImageResource(result.getData().getIntExtra(Tienda.KEY_NAME, R.drawable.jade));
+                    iconInt = result.getData().getIntExtra(Tienda.KEY_NAME, R.drawable.jade);
                     jades = new BigInteger(result.getData().getStringExtra(Tienda.KEY_JADES));
                     //jades = BigInteger.valueOf(result.getData().getIntExtra(Tienda.KEY_JADES, jades.intValue()));
 
@@ -91,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
     int incrementar = 1;
     int costo = 120;
     int tickets = 0;
+    int autoclick = 0;
 
     //variables iconos
     ImageView jadeic;
@@ -110,13 +112,15 @@ public class MainActivity extends AppCompatActivity {
         pruebauser = findViewById(R.id.usuariopr);
 
 
-       // insertcontador(contador);
-        contador.setText("" + jades);
 
         //RECORGER NOMBRE USUARIO
         Intent us = getIntent();
         userText = us.getStringExtra("nombre_usuario");
         pruebauser.setText("Nombre de usuario:"+userText);
+
+
+        insertcontador(contador);
+
 
         //GUARDAR SCORE
         save.setOnClickListener(new View.OnClickListener() {
@@ -125,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                 String[] split = pruebauser.getText().toString().split(":");
                 userText = split[1];
                 DBHelper db = new DBHelper(v.getContext());
-                db.saveDatos(userText,jades.toString());
+                db.saveDatos(userText,jades.toString(),costo,incrementar,iconInt,autoclick);
             }
         });
 
@@ -161,9 +165,7 @@ public class MainActivity extends AppCompatActivity {
         ScaleAnimation fade_in = new ScaleAnimation(0.7f, 1.2f, 0.7f, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         fade_in.setDuration(100);
         jadeic.startAnimation(fade_in);
-        //int n = Integer.parseInt(contador.getText().toString()) +1;
         jades = jades.add(BigInteger.valueOf(incrementar));
-        //num += incrementar;
         contador.setText(FormatoNum(jades));
     }
 
@@ -194,7 +196,6 @@ public class MainActivity extends AppCompatActivity {
             incrementar++;
             contador.setText("" + jades);
             costo += 20;
-
             boton.setText(costo + " jades");
             crearHilos();
         }
@@ -226,6 +227,7 @@ public class MainActivity extends AppCompatActivity {
     public void crearHilos() {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
+        autoclick = 1;
 
         executor.execute(() -> {
             //Background work here
@@ -239,7 +241,6 @@ public class MainActivity extends AppCompatActivity {
                 fade_in.setDuration(100);
                 jadeic.startAnimation(fade_in);
                 jades = jades.add(BigInteger.valueOf(incrementar));
-
                 handler.post(() -> {
                     //UI Thread work here
                     contador.setText(FormatoNum(jades));
@@ -247,6 +248,38 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void insertcontador(View v){
+        DBHelper dbHelper = new DBHelper(v.getContext());
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select puntos,costo,incremento,icono,autoclick from datos where nombre_usuario=?", new String[]{userText});
+        if(cursor.moveToFirst() && cursor.getCount() >= 1){
+            int puntosIndex = cursor.getColumnIndex("puntos");
+            int costoIndex = cursor.getColumnIndex("costo");
+            int incrementoIndex = cursor.getColumnIndex("incremento");
+            int iconoIndex = cursor.getColumnIndex("icono");
+            int autoclikIndex = cursor.getColumnIndex("autoclick");
+            if(cursor.getInt(incrementoIndex)!=0){
+                costo = cursor.getInt(costoIndex);
+                incrementar = cursor.getInt(incrementoIndex);
+                iconInt = cursor.getInt(iconoIndex);
+                autoclick = cursor.getInt(autoclikIndex);
+                jadeic.setImageResource(iconInt);
+            }
+            String pts = cursor.getString(puntosIndex);
+            Log.d("MiApp", "puntos " + pts);
+
+            //insertar contador y autoclicker
+            jades = new BigInteger(pts);
+            contador.setText(pts);
+            if(autoclick == 1){
+                crearHilos();
+            }
+        }else{
+            contador.setText("0");
+        }
+        }
+
 
     public void play(View v) {
         if (player == null) {

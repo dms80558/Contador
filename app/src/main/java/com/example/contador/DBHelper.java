@@ -20,6 +20,10 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_USERNAME = "nombre_usuario";
     public static final String COLUMN_PASSWORD = "contraseña";
     public static final String COLUMN_SCORE = "puntos";
+    public static final String COLUMN_COSTO = "costo";
+    public static final String COLUMN_INCREMENTO = "incremento";
+    public static final String COLUMN_ICON = "icono";
+    public static final String COLUMN_AUTOCLICK = "autoclick";
 
     public DBHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -32,8 +36,13 @@ public class DBHelper extends SQLiteOpenHelper {
         String query = "CREATE TABLE " + TABLE_NAME +
                 " (" +
                 COLUMN_USERNAME + " TEXT PRIMARY KEY UNIQUE, " +
-                COLUMN_PASSWORD + " TEXT, " +
-                COLUMN_SCORE + " TEXT);";
+                COLUMN_PASSWORD + " TEXT," +
+                COLUMN_SCORE + " TEXT," +
+                COLUMN_COSTO + " INTEGER," +
+                COLUMN_INCREMENTO + " INTEGER," +
+                COLUMN_ICON + " INTEGER,"+
+                COLUMN_AUTOCLICK + " INTEGER CHECK ( " + COLUMN_AUTOCLICK + " IN (0,1)" +")"
+                +");";
         sqLiteDatabase.execSQL(query);
     }
 
@@ -56,7 +65,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-    public void saveDatos(String nombreuser, String score) {
+    public void saveDatos(String nombreuser, String score,int costo, int incremento, int icon, int autoclick) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from datos where nombre_usuario=?", new String[]{nombreuser});
 
@@ -70,13 +79,16 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_USERNAME, nombreuser);
         cv.put(COLUMN_PASSWORD, password);
         cv.put(COLUMN_SCORE, score);
+        cv.put(COLUMN_COSTO,costo);
+        cv.put(COLUMN_INCREMENTO,incremento);
+        cv.put(COLUMN_ICON,icon);
+        cv.put(COLUMN_AUTOCLICK,autoclick);
 
         long result = db.update(TABLE_NAME, cv, "nombre_usuario=?", new String[]{nombreuser});
         if (result <=0) {
             Toast.makeText(context, "No se ha podido guardarlos datos", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(context, "Se han guardado los datos", Toast.LENGTH_SHORT).show();
-            Log.d("MiApp", "Número de filas afectadas: " + result);
         }
     }
 
