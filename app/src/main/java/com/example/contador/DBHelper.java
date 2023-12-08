@@ -5,15 +5,18 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import java.math.BigInteger;
+
 public class DBHelper extends SQLiteOpenHelper {
     private Context context;
-    private static final String DATABASE_NAME = "users.db";
+    private static final String DATABASE_NAME = "user.db";
     private static final int DATABASE_VERSION = 1;
-    public static final String TABLE_NAME = "usuarios";
-    private static final String USER_ID = "_id";
+    public static final String TABLE_NAME = "datos";
     public static final String COLUMN_USERNAME = "nombre_usuario";
     public static final String COLUMN_PASSWORD = "contraseña";
     public static final String COLUMN_SCORE = "puntos";
@@ -27,8 +30,8 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String query = "CREATE TABLE " + TABLE_NAME +
-                " (" + USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_USERNAME + " TEXT, " +
+                " (" +
+                COLUMN_USERNAME + " TEXT PRIMARY KEY UNIQUE, " +
                 COLUMN_PASSWORD + " TEXT, " +
                 COLUMN_SCORE + " TEXT);";
         sqLiteDatabase.execSQL(query);
@@ -46,16 +49,41 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put("username", COLUMN_USERNAME);
         values.put("password", COLUMN_PASSWORD);
 
-        long result = db.insert("usuarios", null, values);
+        long result = db.insert("datos", null, values);
         if (result == -1) return false;
         else
             return true;
     }
 
+
+    public void saveDatos(String nombreuser, String score) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from datos where nombre_usuario=?", new String[]{nombreuser});
+
+        String password="";
+        if(cursor.moveToFirst() && cursor.getCount() >= 1){
+            int passwordIndex = cursor.getColumnIndex(COLUMN_PASSWORD);
+            password = cursor.getString(passwordIndex);
+        }
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_USERNAME, nombreuser);
+        cv.put(COLUMN_PASSWORD, password);
+        cv.put(COLUMN_SCORE, score);
+
+        long result = db.update(TABLE_NAME, cv, "nombre_usuario=?", new String[]{nombreuser});
+        if (result <=0) {
+            Toast.makeText(context, "No se ha podido guardarlos datos", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Se han guardado los datos", Toast.LENGTH_SHORT).show();
+            Log.d("MiApp", "Número de filas afectadas: " + result);
+        }
+    }
+
     public Boolean checkUsername(String username) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String [] u = {username};
-        Cursor cursor = db.rawQuery("select * from usuarios where nombre_usuario=?", u);
+        String[] u = {username};
+        Cursor cursor = db.rawQuery("select * from datos where nombre_usuario=?", u);
         if (cursor.getCount() > 0)
             return true;
         else
@@ -64,19 +92,20 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public Boolean checkPassword(String password) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String [] u = {password};
-        Cursor cursor = db.rawQuery("select * from usuarios where contraseña=?", u);
+        String[] u = {password};
+        Cursor cursor = db.rawQuery("select * from datos where contraseña=?", u);
         if (cursor.getCount() > 0)
             return true;
         else
             return false;
     }
+
     public Boolean checkuserNamePassword(String username, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String [] u = {username};
-        String [] p = {password};
-        Cursor cursor = db.rawQuery("select * from usuarios where nombre_usuario=? and contraseña=?", u );
-        if (cursor.getCount()>0)
+        String[] u = {username, password};
+
+        Cursor cursor = db.rawQuery("select * from datos where nombre_usuario=? and contraseña=?", u);
+        if (cursor.getCount() > 0)
             return true;
         else
             return false;

@@ -31,6 +31,7 @@ public class Tienda extends AppCompatActivity {
     TextView textvales;
     TextView jades;
     BigInteger num_jades = BigInteger.ZERO;
+    String userText;
     int[] iconos;
     int tickets = 0;
     int costo = 12;
@@ -58,6 +59,7 @@ public class Tienda extends AppCompatActivity {
         incrementar = intent.getExtras().getInt("incrementar");
         costo = intent.getIntExtra("costo", 12);
         iconInt = intent.getIntExtra("icono", iconInt);
+        userText = intent.getStringExtra("nombre_usuario");
 
         //INSERTAR DATOS
         jades.setText(FormatoNum(num_jades));
@@ -77,6 +79,7 @@ public class Tienda extends AppCompatActivity {
                 resultado.putExtra(KEY_NAME, iconInt);
                 resultado.putExtra(KEY_TICKETS, tickets);
                 resultado.putExtra(KEY_JADES, num_jades.toString());
+                resultado.putExtra("nombre_usuario",userText);
                 setResult(RESULT_OK, resultado);
                 finish();
             }
@@ -92,6 +95,7 @@ public class Tienda extends AppCompatActivity {
                 operacion.putExtra(KEY_INCREMENTAR, incrementar);
                 operacion.putExtra(KEY_TICKETS, tickets);
                 operacion.putExtra(KEY_COSTO, costo);
+                operacion.putExtra("nombre_usuario",userText);
                 operacion.putExtra(KEY_NAME, iconInt);
                 setResult(RESULT_OK, operacion);
                 finish();
@@ -149,6 +153,7 @@ public class Tienda extends AppCompatActivity {
 
     public void goBack(View v) {
         Intent i = new Intent(this, MainActivity.class);
+        i.putExtra("nombre_usuario",userText);
         i.putExtra("num", num_jades);
         i.putExtra("incrementar", incrementar);
         finish();

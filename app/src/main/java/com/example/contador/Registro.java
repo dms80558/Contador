@@ -2,6 +2,7 @@ package com.example.contador;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -42,7 +43,7 @@ public class Registro extends AppCompatActivity {
          * inicializamos el constructor
          * nombramos la base de datos
          * version de la base de datos*/
-        MyDatabaseHelper admin=new MyDatabaseHelper(this);
+        DBHelper admin=new DBHelper(this);
         /*Abrimos la base de datos para escritura*/
         SQLiteDatabase db = admin.getWritableDatabase();
         /*creamos dos variables string
@@ -51,7 +52,9 @@ public class Registro extends AppCompatActivity {
         String passText =password.getText().toString();
         String confipassText = conf_password.getText().toString();
 
-        if(passText.equals(confipassText)) {
+        Cursor cursor = db.rawQuery("select nombre_usuario from datos where nombre_usuario=?", new String[]{userText});
+
+        if(passText.equals(confipassText)&&cursor.getCount()>=0) {
             /*Creamos un objeto contentvalues y instanciamos*/
             ContentValues values = new ContentValues();
             /*capturamos valores*/
@@ -59,7 +62,7 @@ public class Registro extends AppCompatActivity {
             values.put("contraseña", passText);
             /*llamamos al insert damos el nombre de la base de datos
              * y los valores*/
-            db.insert("usuarios",null,values);
+            db.insert("datos",null,values);
             /*cerramos la base de datos*/
             db.close();
             /*Lanzamos una notificacion toast*/
@@ -68,11 +71,21 @@ public class Registro extends AppCompatActivity {
             ToastMens.show();
             /*lanzamos la actividad*/
             Intent intent=new Intent(this, MainActivity.class);
-            /*iniciamos la actividad*/
+            intent.putExtra("nombre_usuario",userText);
             startActivity(intent);
         } else{
-            Toast toast=Toast.makeText(this,"La contraseña no coincide",Toast.LENGTH_LONG);
-            toast.show();
+            if(cursor.getCount()>0){
+                Toast toast=Toast.makeText(this,"Es nombre de usuario ya existe",Toast.LENGTH_LONG);
+                toast.show();
+                user.setText("");
+                password.setText("");
+                conf_password.setText("");
+
+            }
+            else {
+                Toast toast = Toast.makeText(this, "La contraseña no coincide", Toast.LENGTH_LONG);
+                toast.show();
+            }
         }
 
 

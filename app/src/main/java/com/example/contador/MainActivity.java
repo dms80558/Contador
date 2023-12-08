@@ -8,15 +8,20 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
@@ -37,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onActivityResult(ActivityResult result) {
             if (result != null && result.getResultCode() == RESULT_OK) {
+                userText = result.getData().getStringExtra("nombre_usuario");
                 if (result.getData() != null && result.getData().getIntExtra(Tienda.KEY_NAME, R.drawable.jade) != 0) {
                     jadeic.setImageResource(result.getData().getIntExtra(Tienda.KEY_NAME, R.drawable.jade));
                     jades = new BigInteger(result.getData().getStringExtra(Tienda.KEY_JADES));
@@ -73,8 +79,11 @@ public class MainActivity extends AppCompatActivity {
     TextView contador;
     Button boton;
     Button reset;
+    ImageView save;
 
+    String userText;
 
+    TextView pruebauser;
 
     //variables a pasar
     BigInteger jades = new BigInteger("0");
@@ -96,11 +105,29 @@ public class MainActivity extends AppCompatActivity {
         contador = (TextView) findViewById(R.id.textocontador);
         //botonAutoClick = (Button) findViewById(R.id.button3);
         reset = (Button) findViewById(R.id.reset);
-        //NO TE CARRULA LA IMAGEN
+        save = findViewById(R.id.save);
         jadeic = (ImageView) findViewById(R.id.jade);
+        pruebauser = findViewById(R.id.usuariopr);
 
+
+       // insertcontador(contador);
         contador.setText("" + jades);
-        contador.setText("" + jades);
+
+        //RECORGER NOMBRE USUARIO
+        Intent us = getIntent();
+        userText = us.getStringExtra("nombre_usuario");
+        pruebauser.setText("Nombre de usuario:"+userText);
+
+        //GUARDAR SCORE
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String[] split = pruebauser.getText().toString().split(":");
+                userText = split[1];
+                DBHelper db = new DBHelper(v.getContext());
+                db.saveDatos(userText,jades.toString());
+            }
+        });
 
 
         //MUSICA
@@ -272,6 +299,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
         finish();
     }
+
 
 
 }
