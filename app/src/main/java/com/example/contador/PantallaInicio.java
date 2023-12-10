@@ -53,7 +53,7 @@ public class PantallaInicio extends AppCompatActivity {
     }
 
     public void irMainActivity (View v){
-        Intent i = new Intent(this, MainActivity.class);
+        Intent i = new Intent(this, IniciarSesion.class);
         startActivity(i);
 
 
@@ -65,7 +65,7 @@ public class PantallaInicio extends AppCompatActivity {
 
     }
     public void irOpciones(View v){
-        Intent i = new Intent(this, IniciarSesion.class);
+        Intent i = new Intent(this, Opc.class);
         startActivity(i);
     }
 

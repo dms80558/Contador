@@ -29,24 +29,15 @@ public class IniciarSesion extends AppCompatActivity {
     }
 
     public void inicarSesion(View v) {
-         /*Creamos un objeto de la clase DBHelper e
-        instanciamos el constructor y damos el nonbre de
-         la base de datos y la version*/
 
-        //DBHelper admin = new DBHelper(this);
-
-        /*Abrimos la base de datos como escritura*/
         SQLiteDatabase db = DB.getWritableDatabase();
         String userText = usuario.getText().toString();
         String passText = contraseña.getText().toString();
-        /*inicializamos al cursor y llamamos al objeto de la base
-        de datos para realizar un sentencia query where donde
-         pasamos las dos variables nombre de usuario y password*/
+
 
 
         fila = db.rawQuery("select nombre_usuario,contraseña from datos where nombre_usuario='" +
                 userText + "' and contraseña='" + passText + "'", null);
-        /*Realizamos un try catch para captura de errores*/
 
         if (TextUtils.isEmpty(userText) || TextUtils.isEmpty(passText))
             Toast.makeText(IniciarSesion.this, "Rellena todos los campos", Toast.LENGTH_SHORT).show();

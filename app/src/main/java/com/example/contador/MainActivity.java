@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
         //RECORGER NOMBRE USUARIO
         Intent us = getIntent();
         userText = us.getStringExtra("nombre_usuario");
-        pruebauser.setText("Nombre de usuario:"+userText);
+        pruebauser.setText("Nombre de usuario: "+userText);
 
 
         insertcontador(contador);
@@ -266,8 +266,12 @@ public class MainActivity extends AppCompatActivity {
                 autoclick = cursor.getInt(autoclikIndex);
                 jadeic.setImageResource(iconInt);
             }
+
             String pts = cursor.getString(puntosIndex);
-            Log.d("MiApp", "puntos " + pts);
+
+                jades = new BigInteger(pts);
+
+
 
             //insertar contador y autoclicker
             jades = new BigInteger(pts);

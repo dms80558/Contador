@@ -5,6 +5,7 @@
     tools:context=".IniciarSesion"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/iniciar"
     >
 
     <TextView
@@ -12,22 +13,28 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="INICIA SESIÓN"
+        android:textColor="#E10BC4"
         android:textSize="30dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.076" />
+        app:layout_constraintVertical_bias="0.083" />
 
     <LinearLayout
-        android:layout_width="348dp"
-        android:layout_height="296dp"
-        android:background="@color/morado_vino"
+        android:layout_width="331dp"
+        android:layout_height="227dp"
+        android:background="@drawable/bordelogin"
         android:orientation="vertical"
+        android:paddingLeft="9dp"
+        android:paddingRight="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.252">
 
         <EditText
             android:id="@+id/user"
@@ -61,29 +68,46 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="115dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp"
-            android:text="Confirmar"
+            android:layout_marginLeft="105dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="20dp"
             android:onClick="inicarSesion"
+            android:text="Confirmar"
+            android:backgroundTint="#6C77BD"
             android:textColor="@color/white">
 
         </Button>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="322dp"
+        android:layout_height="38dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bordebotlogin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.563"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints">
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="37dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:background="@android:color/transparent"
-            android:paddingStart="0dp"
-            android:paddingEnd="0dp"
-            android:layout_marginLeft="40dp"
             android:onClick="goRegistro"
+            android:paddingLeft="0dp"
+            android:paddingTop="0dp"
+            android:paddingRight="0dp"
+            android:paddingBottom="0dp"
             android:text="Si no tienes cuenta pulsa para registarse"
-            android:textColor="@color/white">
+
+
+            android:textColor="@color/black"
+            android:textStyle="bold">
 
         </Button>
-
-
     </LinearLayout>
 
 

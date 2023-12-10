@@ -5,18 +5,36 @@
     tools:context=".Registro"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/registrarse"
     >
 
-
-    <LinearLayout
-        android:layout_width="348dp"
-        android:layout_height="296dp"
-        android:background="@color/morado_vino"
-        android:orientation="vertical"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="CREAR CUENTA"
+        android:textColor="#E10BC4"
+        android:textSize="30dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.07" />
+
+    <LinearLayout
+        android:layout_width="353dp"
+        android:layout_height="266dp"
+        android:background="@drawable/bordelogin"
+        android:orientation="vertical"
+        android:paddingLeft="9dp"
+        android:paddingRight="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.219">
 
         <EditText
             android:id="@+id/user"
@@ -37,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="68dp"
             android:defaultFocusHighlightEnabled="true"
-            android:hint="PASSWORD"
+            android:hint="CONTRASEÑA"
             android:inputType="textPassword"
             android:textColorHint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -47,12 +65,13 @@
             app:layout_constraintVertical_bias="0.54">
 
         </EditText>
+
         <EditText
             android:id="@+id/confim_password"
             android:layout_width="match_parent"
             android:layout_height="68dp"
             android:defaultFocusHighlightEnabled="true"
-            android:hint="CONFIRM PASSWORD"
+            android:hint="CONFIRMAR CONTRASEÑA"
             android:inputType="textPassword"
             android:textColorHint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -67,14 +86,13 @@
             android:id="@+id/registarse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Confirmar"
+            android:backgroundTint="#6C77BD"
             android:onClick="RegistrarDataUser"
-            android:layout_marginLeft="115dp"
-            android:layout_marginBottom="40dp"
-            android:layout_marginTop="8dp"
-            android:textColor="@color/white" />
+            android:text="Crear cuenta"
+            android:layout_marginLeft="105dp"
+            android:textColor="@color/white">
 
-
+        </Button>
 
 
     </LinearLayout>
