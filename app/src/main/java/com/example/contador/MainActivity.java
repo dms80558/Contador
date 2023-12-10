@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String[] split = pruebauser.getText().toString().split(":");
+                String[] split = pruebauser.getText().toString().split(": ");
                 userText = split[1];
                 DBHelper db = new DBHelper(v.getContext());
                 db.saveDatos(userText,jades.toString(),costo,incrementar,iconInt,autoclick);

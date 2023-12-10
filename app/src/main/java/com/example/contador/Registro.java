@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.contador.userdata.MyDatabaseHelper;
 
 public class Registro extends AppCompatActivity {
 

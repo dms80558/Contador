@@ -87,6 +87,9 @@ public class DBHelper extends SQLiteOpenHelper {
         long result = db.update(TABLE_NAME, cv, "nombre_usuario=?", new String[]{nombreuser});
         if (result <=0) {
             Toast.makeText(context, "No se ha podido guardarlos datos", Toast.LENGTH_SHORT).show();
+            Log.e("USERNAME",nombreuser);
+            Log.e("USERNAME",score);
+
         } else {
             Toast.makeText(context, "Se han guardado los datos", Toast.LENGTH_SHORT).show();
         }
